@@ -1,14 +1,23 @@
 import './App.css';
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css"
-import Navbar from './layout/navbar';
-import Home from './pages/Home';
-import LoginPage from './pages/LoginPage';
+
+import {
+  BrowserRouter,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+import  LoginPage from './pages/LoginPage';
+import { Dashboard } from './pages/dashboard/dashboard';
 
 function App() {
   return (
-    <div className="App">
-      <LoginPage />
-    </div>
+    <BrowserRouter>
+        <Switch>
+          <Route exact path="/" component={LoginPage}/>
+          <Route exact path="/dashboard" component={Dashboard}/>
+        </Switch>
+      </BrowserRouter>
   );
 }
 
