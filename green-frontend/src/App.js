@@ -1,23 +1,24 @@
 import './App.css';
-import "../node_modules/bootstrap/dist/css/bootstrap.min.css"
+import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import Directions from './Directions';
+import Navbar from './layout/navbar';
 
-import {
-  BrowserRouter,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
-import  LoginPage from './pages/LoginPage';
-import { Dashboard } from './pages/dashboard/dashboard';
+
 
 function App() {
   return (
-    <BrowserRouter>
-        <Switch>
-          <Route exact path="/" component={LoginPage}/>
-          <Route exact path="/dashboard" component={Dashboard}/>
-        </Switch>
-      </BrowserRouter>
+    <>
+    <div>
+      <Navbar/>
+    </div>
+
+    <div>
+      <Directions/>
+    </div>
+    </>
+
+    
+    
   );
 }
 

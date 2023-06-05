@@ -9,7 +9,7 @@ const getToken=()=>{
 export const userLogin=(authRequest)=>{
     return axios({
         'method':'POST',
-        'url':`${process.env.hostUrl||'http://localhost:8080'}/api/v1/auth/login`,
+        'url':`${process.env.hostUrl||'http://localhost:8080'}/api/v1/auth/authenticate`,
         'data':authRequest
     })
 }
