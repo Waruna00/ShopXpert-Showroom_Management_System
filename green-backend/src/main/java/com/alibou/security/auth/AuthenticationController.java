@@ -1,5 +1,6 @@
 package com.alibou.security.auth;
 
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -7,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin("http://localhost:3000")
@@ -14,10 +16,17 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class AuthenticationController {
 
-  private final AuthenticationService service;
+  private final com.alibou.security.auth.AuthenticationService service;
+
+//  @GetMapping("/userinfo")
+//  public Optional<User> userinfo(
+//          @RequestBody InfoRequest request
+//  ) {
+//    return service.userinfo(request);
+//  }
 
   @PostMapping("/register")
-  public ResponseEntity<AuthenticationResponse> register(
+  public ResponseEntity<com.alibou.security.auth.AuthenticationResponse> register(
       @RequestBody RegisterRequest request
   ) {
     return ResponseEntity.ok(service.register(request));

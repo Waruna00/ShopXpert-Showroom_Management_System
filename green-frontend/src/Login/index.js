@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Col, Container, Row, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
- import NavBar from "../../NavBar";
-import { useUser } from "../../UserProvider";
+import NavBar from "../NavBar";
+import { UserProvider, useUser } from "../UserProvider";
+import Directions from "../Directions";
 
 const Login = () => {
   const user = useUser();
@@ -16,6 +17,7 @@ const Login = () => {
   // }, [user]);
 
   function sendLoginRequest() {
+    <Directions />;
     setErrorMsg("");
     const reqBody = {
       email: username,
