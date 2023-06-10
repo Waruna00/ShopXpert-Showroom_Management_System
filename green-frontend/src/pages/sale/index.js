@@ -30,8 +30,11 @@ export default function Index() {
             <Col xl={2}>
               <Form.Label>Item Name</Form.Label>
             </Col>
-            <Col xl={3}>
+            <Col xl={2}>
               <Form.Label>Description</Form.Label>
+            </Col>
+            <Col xl={1}>
+              <Form.Label>Item Price</Form.Label>
             </Col>
             <Col xl={1}>
               <Form.Label>Quantity</Form.Label>
@@ -65,11 +68,19 @@ export default function Index() {
                 readOnly
               />
             </Col>
-            <Col xl={3}>
+            <Col xl={2}>
               <Form.Control
                 type="text"
                 id="item-des"
                 placeholder="Description"
+                readOnly
+              />
+            </Col>
+            <Col xl={1}>
+              <Form.Control
+                type="text"
+                id="item-des"
+                placeholder="Price"
                 readOnly
               />
             </Col>
