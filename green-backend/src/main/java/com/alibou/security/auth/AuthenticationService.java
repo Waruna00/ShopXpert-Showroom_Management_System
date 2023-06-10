@@ -4,23 +4,21 @@ import com.alibou.security.config.JwtService;
 import com.alibou.security.token.Token;
 import com.alibou.security.token.TokenRepository;
 import com.alibou.security.token.TokenType;
-import com.alibou.security.user.Role;
 import com.alibou.security.user.User;
 import com.alibou.security.user.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Service;
-
 import java.io.IOException;
 import java.util.Optional;
 
@@ -51,9 +49,16 @@ public class AuthenticationService {
         .build();
   }
 
-//  public Optional<User> userinfo(InfoRequest request){
-//
-//    return repository.findByEmail(request.getEmail());
+  @Autowired
+  private UserRepository userRepository;
+ 
+  public Optional<User> findByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
+//  public User userinfo(InfoRequest request){
+
+//    return repository.findByEmail(request.getEmail()).orElseThrow();
 //  }
 
   public AuthenticationResponse authenticate(AuthenticationRequest request) {
@@ -73,6 +78,7 @@ public class AuthenticationService {
         .accessToken(jwtToken)
             .refreshToken(refreshToken)
         .build();
+        
   }
 
   private void saveUserToken(User user, String jwtToken) {

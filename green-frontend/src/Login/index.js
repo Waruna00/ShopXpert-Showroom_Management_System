@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button, Col, Container, Row, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import NavBar from "../NavBar";
 import { UserProvider, useUser } from "../UserProvider";
 import Directions from "../Directions";
 
@@ -50,7 +49,6 @@ const Login = () => {
   }
   return (
     <>
-      <NavBar />
       <Container>
         <Row className="justify-content-center mt-5">
           <Col md="8" lg="6">

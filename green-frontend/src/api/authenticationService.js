@@ -20,7 +20,7 @@ export const fetchUserData = (authRequest) => {
     method: "GET",
     url: `${
       process.env.hostUrl || "http://localhost:8080"
-    }/api/v1/auth/userinfo`,
+    }/api/v1/auth/userinfo/admin@mail.com`,
     headers: {
       Authorization: "Bearer " + getToken(),
     },

@@ -4,8 +4,8 @@ import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { fetchUserData } from "../../api/authenticationService";
 import { UserProvider } from "../../UserProvider";
-import Directions from "../../Directions";
 import { useNavigate } from "react-router-dom";
+import NavBar from "../../NavBar";
 
 const MainWrapper = styled.div`
   padding-top: 40px;
@@ -24,19 +24,18 @@ export const Dashboard = (props) => {
       })
       .catch((e) => {
         localStorage.clear();
-        //navigate("/");
         props.history.push("/");
       });
   }, []);
 
   const logOut = () => {
     localStorage.clear();
-    //navigate("/");
     props.history.push("/");
   };
 
   return (
     <UserProvider>
+      <NavBar />
       <Container>
         <MainWrapper>
           <h4>Hello {data && `${data.firstName} ${data.lastName}`}</h4>

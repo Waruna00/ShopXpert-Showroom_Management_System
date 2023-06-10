@@ -51,6 +51,7 @@ public class SecurityConfiguration {
         .authorizeHttpRequests()
         .requestMatchers(
                 "/api/v1/auth/**",
+                "/api/v1/auth/userinfo/**",
                 "/v2/api-docs",
                 "/v3/api-docs",
                 "/v3/api-docs/**",
@@ -64,6 +65,7 @@ public class SecurityConfiguration {
         )
           .permitAll()
 
+        .requestMatchers("/api/v1/auth/userinfo/**").permitAll()
 
         .requestMatchers("/api/v1/management/**").hasAnyRole(ADMIN.name(), MANAGER.name())
 
