@@ -59,7 +59,8 @@ public class SecurityConfiguration {
             "/swagger-ui/**",
             "/webjars/**",
             "/swagger-ui.html",
-            "/api/product/**")
+            "/api/product/**",
+            "/api/bill/**")
         .permitAll()
 
         .requestMatchers("/api/v1/auth/userinfo/**").permitAll()

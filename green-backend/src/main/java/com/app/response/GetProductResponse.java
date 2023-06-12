@@ -1,16 +1,16 @@
 package com.app.response;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AddResponse {
+public class GetProductResponse {
     @JsonProperty("Product_code")
     private String Product_code;
     @JsonProperty("Name")
