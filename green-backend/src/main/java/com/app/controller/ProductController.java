@@ -1,4 +1,4 @@
-package com.app.api.controller;
+package com.app.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.web.bind.annotation.*;
 
-import com.app.api.request.AddRequest;
+import com.app.request.AddRequest;
 
 @RestController
 @CrossOrigin("http://localhost:3000")
@@ -16,12 +16,11 @@ import com.app.api.request.AddRequest;
 public class ProductController {
 
     @Autowired
-    private final com.app.api.service.ProductService service;
+    private final com.app.service.ProductService service;
 
     @PostMapping("/add")
-    public ResponseEntity<com.app.api.response.AddResponse> add(
+    public ResponseEntity<com.app.response.AddResponse> add(
             @RequestBody AddRequest request) {
-        System.out.println("asf" + request);
         return ResponseEntity.ok(service.addProduct(request));
     }
 }

@@ -1,4 +1,5 @@
-package com.app.auth;
+package com.app.controller;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -8,7 +9,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.app.user.User;
+import com.app.model.user.User;
+import com.app.request.AuthenticationRequest;
+import com.app.request.RegisterRequest;
+import com.app.response.AuthenticationResponse;
+import com.app.service.AuthenticationService;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -20,7 +25,7 @@ import java.util.Optional;
 public class AuthenticationController {
 
   @Autowired
-  private final com.app.auth.AuthenticationService service;
+  private final com.app.service.AuthenticationService service;
 
   // @GetMapping("/userinfo")
   // public ResponseEntity<User> userinfo(
@@ -33,16 +38,16 @@ public class AuthenticationController {
   @GetMapping("/userinfo/{email}")
   public ResponseEntity<User> userinfo(@PathVariable("email") String email) {
     Optional<User> optionalUser = service.findByEmail(email);
-  
+
     if (optionalUser.isPresent()) {
       return new ResponseEntity<User>(optionalUser.get(), HttpStatus.OK);
     }
     return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
-    //return ResponseEntity.ok(optionalUser);
+    // return ResponseEntity.ok(optionalUser);
   }
 
   @PostMapping("/register")
-  public ResponseEntity<com.app.auth.AuthenticationResponse> register(
+  public ResponseEntity<com.app.response.AuthenticationResponse> register(
       @RequestBody RegisterRequest request) {
     return ResponseEntity.ok(service.register(request));
   }

@@ -1,11 +1,11 @@
-package com.app.api.service;
+package com.app.service;
 
 import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 
-import com.app.api.request.AddRequest;
-import com.app.api.response.AddResponse;
 import com.app.model.Product;
+import com.app.request.AddRequest;
+import com.app.response.AddResponse;
 
 @Service
 @RequiredArgsConstructor
@@ -20,9 +20,6 @@ public class ProductService {
                 .Description(request.getDescription())
                 .Price(request.getPrice())
                 .build();
-
-        System.out.println(product);
-        System.out.println(request);
 
         repository.save(product);
         return AddResponse.builder()

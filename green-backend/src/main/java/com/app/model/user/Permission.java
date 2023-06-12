@@ -1,4 +1,4 @@
-package com.app.user;
+package com.app.model.user;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

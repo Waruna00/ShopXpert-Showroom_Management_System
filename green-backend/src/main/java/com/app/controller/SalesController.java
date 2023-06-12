@@ -1,4 +1,4 @@
-package com.app.api;
+package com.app.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -8,10 +8,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import com.app.user.User;
+
+import com.app.model.user.User;
+import com.app.request.RegisterRequest;
+
 import java.io.IOException;
 import java.util.Optional;
-import com.app.auth.RegisterRequest;
 
 // @RestController
 // @CrossOrigin("http://localhost:3000")

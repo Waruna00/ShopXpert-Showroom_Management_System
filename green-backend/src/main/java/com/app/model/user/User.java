@@ -1,4 +1,4 @@
-package com.app.user;
+package com.app.model.user;
 
 import com.app.model.Bill;
 import com.app.token.Token;
@@ -44,7 +44,6 @@ public class User implements UserDetails {
 
   @OneToMany(mappedBy = "user")
   private Set<Bill> bills;
-  
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {

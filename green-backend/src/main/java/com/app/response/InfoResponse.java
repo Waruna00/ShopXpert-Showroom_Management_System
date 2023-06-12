@@ -1,4 +1,4 @@
-package com.app.auth;
+package com.app.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,8 +9,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthenticationRequest {
-
+public class InfoResponse {
+  private String firstname;
+  private String lastname;
   private String email;
-  String password;
+  private String password;
+  private String role;
 }

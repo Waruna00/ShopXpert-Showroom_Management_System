@@ -1,14 +1,15 @@
 package com.app;
 
-import com.app.auth.AuthenticationService;
-import com.app.auth.RegisterRequest;
+import com.app.request.RegisterRequest;
+import com.app.service.AuthenticationService;
+
+import static com.app.model.user.Role.ADMIN;
+import static com.app.model.user.Role.MANAGER;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-
-import static com.app.user.Role.ADMIN;
-import static com.app.user.Role.MANAGER;
 
 @SpringBootApplication
 public class SecurityApplication {
@@ -19,8 +20,7 @@ public class SecurityApplication {
 
 	@Bean
 	public CommandLineRunner commandLineRunner(
-			AuthenticationService service
-	) {
+			AuthenticationService service) {
 		return args -> {
 			var admin = RegisterRequest.builder()
 					.firstname("Admin")
