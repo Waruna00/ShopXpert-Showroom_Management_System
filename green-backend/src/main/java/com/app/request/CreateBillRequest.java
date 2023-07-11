@@ -1,5 +1,6 @@
 package com.app.request;
 
+import java.time.LocalDate;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,7 +12,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CreateBillRequest {
 
-    private String invoice;
+    private int invoice;
+    private LocalDate date;
+    private String time;
     private String total;
+    private int user;
 
 }

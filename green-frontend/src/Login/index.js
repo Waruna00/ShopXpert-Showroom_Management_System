@@ -11,9 +11,9 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState(null);
 
-  // useEffect(() => {
-  //   if (user.jwt) navigate("/dashboard");
-  // }, [user]);
+  useEffect(() => {
+    if (user.jwt) navigate("/dashboard");
+  }, [user]);
 
   function sendLoginRequest() {
     <Directions />;
@@ -36,12 +36,13 @@ const Login = () => {
           setErrorMsg("Invalid username or password");
         } else {
           setErrorMsg(
-            "Something went wrong, try again later or reach out to trevor@coderscampus.com"
+            "Something went wrong, try again later"
           );
         }
       })
       .then((data) => {
         if (data) {
+          console.log(data);
           user.setJwt(data);
           navigate("/dashboard");
         }

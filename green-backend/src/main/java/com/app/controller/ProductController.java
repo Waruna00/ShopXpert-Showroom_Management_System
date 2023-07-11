@@ -29,7 +29,7 @@ public class ProductController {
         return ResponseEntity.ok(service.addProduct(request));
     }
 
-    @GetMapping("/get")
+    @PostMapping("/get")
     public ResponseEntity<Optional<Product>> get(
             @RequestBody GetProduct request) {
         return ResponseEntity.ok(service.getProduct(request));

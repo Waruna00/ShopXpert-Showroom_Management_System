@@ -3,8 +3,8 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Button, Image } from "react-bootstrap";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Nav from "react-bootstrap/Nav";
-import logo from "../Images/green-logo.png";
-import { useUser } from "../UserProvider";
+import logo from "../../Images/green-logo.png";
+import { useUser } from "../../UserProvider";
 import jwt_decode from "jwt-decode";
 
 function NavBar() {

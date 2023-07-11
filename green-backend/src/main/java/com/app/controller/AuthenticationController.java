@@ -11,9 +11,10 @@ import org.springframework.web.bind.annotation.*;
 
 import com.app.model.user.User;
 import com.app.request.AuthenticationRequest;
+import com.app.request.InfoRequest;
 import com.app.request.RegisterRequest;
 import com.app.response.AuthenticationResponse;
-import com.app.service.AuthenticationService;
+import com.app.response.InfoResponse;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -35,15 +36,15 @@ public class AuthenticationController {
   // return ResponseEntity.ok(userByemail);
   // }
 
-  @GetMapping("/userinfo/{email}")
-  public ResponseEntity<User> userinfo(@PathVariable("email") String email) {
-    Optional<User> optionalUser = service.findByEmail(email);
-
-    if (optionalUser.isPresent()) {
-      return new ResponseEntity<User>(optionalUser.get(), HttpStatus.OK);
+  @PostMapping("/userinfo")
+  public ResponseEntity<Optional<User>> userinfo(
+      @RequestBody InfoRequest request) {
+        Optional <User> user = service.userinfo(request);
+    if (user.isPresent()) {
+      return ResponseEntity.ok(service.userinfo(request));
+    } else {
+      return ResponseEntity.notFound().build();
     }
-    return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
-    // return ResponseEntity.ok(optionalUser);
   }
 
   @PostMapping("/register")

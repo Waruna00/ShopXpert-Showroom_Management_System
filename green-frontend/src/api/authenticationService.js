@@ -17,10 +17,10 @@ export const userLogin = (authRequest) => {
 
 export const fetchUserData = (authRequest) => {
   return axios({
-    method: "GET",
+    method: "POST",
     url: `${
       process.env.hostUrl || "http://localhost:8080"
-    }/api/v1/auth/userinfo/admin@mail.com`,
+    }/api/v1/auth/userinfo`,
     headers: {
       Authorization: "Bearer " + getToken(),
     },

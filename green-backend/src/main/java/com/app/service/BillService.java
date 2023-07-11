@@ -1,7 +1,6 @@
 package com.app.service;
 
-import org.joda.time.LocalDate;
-import org.joda.time.LocalTime;
+import java.sql.Time;
 import org.springframework.stereotype.Service;
 import com.app.model.Bill;
 import com.app.request.CreateBillRequest;
@@ -12,13 +11,15 @@ import lombok.RequiredArgsConstructor;
 public class BillService {
 
     private final com.app.repo.BillRepo repository;
+    private final com.app.repo.UserRepository userRepo;
 
     public CreateBillRequest create(CreateBillRequest request) {
 
         var bill = Bill.builder()
                 .InvoiceNo(request.getInvoice())
-                .BillDate(LocalDate.now())
-                .BillTime(LocalTime.now())
+                .user(userRepo.findById(request.getUser()).orElseThrow(() -> new RuntimeException("cashier not found")))
+                .BillDate(request.getDate())
+                .BillTime(Time.valueOf(request.getTime()))
                 .Total(request.getTotal())
                 .Status("Success")
                 .build();
@@ -26,10 +27,9 @@ public class BillService {
 
         return CreateBillRequest.builder()
                 .invoice(bill.getInvoiceNo())
-                // .BillDate(bill.getBillDate())
-                // .BillTime(bill.getBillTime())
+                .date(bill.getBillDate())
+                .time(String.valueOf(bill.getBillTime()))
                 .total(bill.getTotal())
-                // .Status(bill.getStatus())
                 .build();
     }
 

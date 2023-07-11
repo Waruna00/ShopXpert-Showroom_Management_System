@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { fetchUserData } from "../../api/authenticationService";
 import { UserProvider } from "../../UserProvider";
 import { useNavigate } from "react-router-dom";
-import NavBar from "../../NavBar";
+import NavBar from "../../comp/NavBar";
 
 const MainWrapper = styled.div`
   padding-top: 40px;
