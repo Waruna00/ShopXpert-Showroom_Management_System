@@ -1,16 +1,24 @@
 package com.app.model;
 
 import java.time.LocalDate;
-import java.util.Set;
+import java.util.Optional;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "Item")
 public class Item {
@@ -28,8 +36,12 @@ public class Item {
     private Product product;
 
     @ManyToOne
-    @JoinColumn(name = "invoice_no", nullable = true)
+    @JoinColumn(name = "outward_invoice_no", nullable = true)
     private Bill bill;
+
+    @ManyToOne
+    @JoinColumn(name = "inward_invoice_no", nullable = true)
+    private Inward_Invoice inward_invoice;
 
     // @ManyToMany(mappedBy="items")
     // private Set<Bill> bills;

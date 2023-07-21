@@ -10,6 +10,7 @@ import Sdf from "./pages/sdf";
 import RegistrationForm from "./pages/registration/Registration";
 import { Dashboard } from "./pages/dashboard/dashboard";
 import Sale from "./pages/sale";
+import ServiceRepairRequest from "./pages/technician/ServiceRepairRequest";
 
 export default function Directions() {
   return (
@@ -21,6 +22,10 @@ export default function Directions() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/registration" element={<RegistrationForm />} />
           <Route path="/sale" element={<Sale />} />
+          <Route
+            path="/ServiceRepairRequest"
+            element={<ServiceRepairRequest />}
+          />
         </Routes>
       </Router>
     </div>

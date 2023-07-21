@@ -3,18 +3,14 @@ package com.app.controller;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import com.app.model.user.User;
 import com.app.request.AuthenticationRequest;
 import com.app.request.InfoRequest;
 import com.app.request.RegisterRequest;
 import com.app.response.AuthenticationResponse;
-import com.app.response.InfoResponse;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -39,7 +35,7 @@ public class AuthenticationController {
   @PostMapping("/userinfo")
   public ResponseEntity<Optional<User>> userinfo(
       @RequestBody InfoRequest request) {
-        Optional <User> user = service.userinfo(request);
+    Optional<User> user = service.userinfo(request);
     if (user.isPresent()) {
       return ResponseEntity.ok(service.userinfo(request));
     } else {

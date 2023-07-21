@@ -16,7 +16,7 @@ public class BillService {
     public CreateBillRequest create(CreateBillRequest request) {
 
         var bill = Bill.builder()
-                .InvoiceNo(request.getInvoice())
+                .invoiceNo(request.getInvoice())
                 .user(userRepo.findById(request.getUser()).orElseThrow(() -> new RuntimeException("cashier not found")))
                 .BillDate(request.getDate())
                 .BillTime(Time.valueOf(request.getTime()))

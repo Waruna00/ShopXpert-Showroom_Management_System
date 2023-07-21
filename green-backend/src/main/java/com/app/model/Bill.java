@@ -4,7 +4,6 @@ import com.app.model.user.User;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -27,7 +26,7 @@ import java.util.Set;
 public class Bill {
     @Id
     @GeneratedValue
-    private int InvoiceNo;
+    private int invoiceNo;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate BillDate;
     private Time BillTime;
@@ -50,11 +49,11 @@ public class Bill {
 
     // Getters and Setters
     public int getInvoiceNo() {
-        return InvoiceNo;
+        return invoiceNo;
     }
 
-    public void setInvoiceNo(int invoiceNo) {
-        InvoiceNo = invoiceNo;
+    public void setInvoiceNo(int invoice_No) {
+        invoiceNo = invoice_No;
     }
 
     public LocalDate getBillDate() {

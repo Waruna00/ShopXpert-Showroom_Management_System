@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import com.app.model.Product;
+import com.app.request.AddItem;
 import com.app.request.AddProduct;
 import com.app.request.GetProduct;
 
@@ -38,5 +39,11 @@ public class ProductController {
     @GetMapping("allproducts")
     public ResponseEntity<List<Product>> findAll() {
         return ResponseEntity.ok(service.findAll());
+    }
+
+    @PostMapping("addItem")
+    public ResponseEntity<AddItem> addItem(
+            @RequestBody AddItem request) {
+        return ResponseEntity.ok(service.addItem(request));
     }
 }
