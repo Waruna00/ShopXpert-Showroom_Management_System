@@ -2,16 +2,11 @@ package com.app.controller;
 
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.web.bind.annotation.*;
-
 import com.app.model.Product;
-import com.app.request.AddItem;
 import com.app.request.AddProduct;
 import com.app.request.GetProduct;
 
@@ -41,9 +36,9 @@ public class ProductController {
         return ResponseEntity.ok(service.findAll());
     }
 
-    @PostMapping("addItem")
-    public ResponseEntity<AddItem> addItem(
-            @RequestBody AddItem request) {
-        return ResponseEntity.ok(service.addItem(request));
-    }
+    // @PostMapping("addItem")
+    // public ResponseEntity<AddItem> addItem(
+    // @RequestBody AddItem request) {
+    // return ResponseEntity.ok(service.addItem(request));
+    // }
 }

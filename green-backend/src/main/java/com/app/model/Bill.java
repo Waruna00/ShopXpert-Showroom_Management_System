@@ -37,8 +37,9 @@ public class Bill {
     // @ManyToMany
     // private Set<Item> items;
 
-    @OneToMany(mappedBy = "bill")
-    private Set<Customer> Cus_Code;
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
 
     @ManyToOne
     @JoinColumn(name = "user", nullable = false)

@@ -8,6 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ItemRepo extends JpaRepository<Item, String> {
 
-     Optional<Item> findBySerial_no(String serial_no);
+     //Optional<Item> findBySerial_no(String serial_no);
 
 }

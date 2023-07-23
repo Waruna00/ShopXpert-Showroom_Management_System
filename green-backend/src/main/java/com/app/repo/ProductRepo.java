@@ -8,6 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ProductRepo extends JpaRepository<Product, String> {
 
-    Optional<Product> findByProduct_Code(String product_code);      
+    //Optional<Product> findByProduct_Code(String product_code);      
 
 }

@@ -1,8 +1,6 @@
 package com.app.model;
 
 import java.time.LocalDate;
-import java.util.Optional;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

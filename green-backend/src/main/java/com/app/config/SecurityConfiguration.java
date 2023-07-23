@@ -60,6 +60,8 @@ public class SecurityConfiguration {
             "/webjars/**",
             "/swagger-ui.html",
             "/api/product/**",
+            "/api/technician/**",
+            "/api/customer/**",
             "/api/bill/**")
         .permitAll()
 

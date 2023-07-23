@@ -37,37 +37,37 @@ public class ProductService {
                 .build();
     }
 
-    public AddItem addItem(AddItem request) {
+//     public AddItem addItem(AddItem request) {
 
-        var bill = billRepo.findByInvoiceNo(request.getOutward_invoice_no())
-                .orElseThrow(() -> new RuntimeException("product not found"));
+//         var bill = billRepo.findByInvoiceNo(request.getOutward_invoice_no())
+//                 .orElseThrow(() -> new RuntimeException("product not found"));
         
-        var inwardInvoice = inwardInvoiceRepo.findByInvoice(request.getInward_invoice_no())
-                .orElseThrow(() -> new RuntimeException("product not found"));
+//         var inwardInvoice = inwardInvoiceRepo.findByInvoice(request.getInward_invoice_no())
+//                 .orElseThrow(() -> new RuntimeException("product not found"));
 
-        var product = repository.findByProduct_Code(request.getProduct_code())
-                .orElseThrow(() -> new RuntimeException("product not found")); 
+//         var product = repository.findByProduct_Code(request.getProduct_code())
+//                 .orElseThrow(() -> new RuntimeException("product not found")); 
 
-        var item = Item.builder()
-                .serial_no(request.getSerial_no())
-                .Inward(request.getInward())
-                .Outward(request.getOutward())
-                .bill(bill)
-                .inward_invoice(inwardInvoice)
-                .product(product)
-                .build();
+//         var item = Item.builder()
+//                 .serial_no(request.getSerial_no())
+//                 .Inward(request.getInward())
+//                 .Outward(request.getOutward())
+//                 .bill(bill)
+//                 .inward_invoice(inwardInvoice)
+//                 .product(product)
+//                 .build();
 
-        itemRepo.save(item);
+//         itemRepo.save(item);
 
-        return AddItem.builder()
-                .serial_no(item.getSerial_no())
-                .inward(item.getInward())
-                .outward(item.getOutward())
-                .inward_invoice_no(item.getInward_invoice().getInvoice_no())
-                .outward_invoice_no(item.getBill().getInvoiceNo())
-                .product_code(item.getProduct().getProduct_code())
-                .build();
-    }
+//         return AddItem.builder()
+//                 .serial_no(item.getSerial_no())
+//                 .inward(item.getInward())
+//                 .outward(item.getOutward())
+//                 .inward_invoice_no(item.getInward_invoice().getInvoice_no())
+//                 .outward_invoice_no(item.getBill().getInvoiceNo())
+//                 .product_code(item.getProduct().getProduct_code())
+//                 .build();
+//     }
 
 
 
