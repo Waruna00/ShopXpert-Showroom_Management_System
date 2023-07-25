@@ -5,12 +5,11 @@ import { Button } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import NavBar from "../../comp/NavBar";
 import "./style/ServiceTracker.css";
-import { useNavigation } from "react-router-dom";
+import { useNavigate, useNavigation } from "react-router-dom";
+import { useContext } from "react";
+import { ServiceContext } from "../../Context/ServiceContext";
+import { useHistory } from "react-router-dom";
 
-const handleView = (jobNo) => {
-  console.log(`Viewing job ${jobNo}`);
-  //history.push(`/technician/service-tracker/${jobNo}`);
-};
 function TableRows({ rows, tableRowRemove }) {
   return rows.map((rowsData, index) => {
     var {
@@ -54,7 +53,7 @@ function TableRows({ rows, tableRowRemove }) {
           <Button
             className="row-btn"
             variant="btn btn-secondary"
-            onClick={handleView.bind(this, no)}
+            onClick={() => handleView.bind(this, no)}
           >
             View
           </Button>
@@ -63,9 +62,21 @@ function TableRows({ rows, tableRowRemove }) {
     );
   });
 }
+
+const handleView = (jobNo) => {
+  //setServiceNo(jobNo);
+  console.log(`Service no set to ${jobNo}`);
+};
+
 export default function ServiceTracker() {
   const [rows, initRow] = useState([]);
   const [services, setServices] = useState([]);
+  const { setServiceNo, serviceNo } = useContext(ServiceContext);
+  const navigation = useNavigate();
+
+  // function handleView(jobNo) {
+  //   history.push(`/service-tracker/${jobNo}`);
+  // }
 
   useEffect(() => {
     fetch("http://localhost:8080/api/technician/getall")

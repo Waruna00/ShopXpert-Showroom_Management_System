@@ -5,8 +5,8 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 import com.app.model.RepairService;
-import com.app.repo.CustomerRepo;
-import com.app.repo.RepairServiceRepository;
+import com.app.repository.CustomerRepo;
+import com.app.repository.RepairServiceRepo;
 import com.app.request.AddRepairRequest;
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +15,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class RepairServiceService {
-        private final RepairServiceRepository repository;
+        private final RepairServiceRepo repository;
         private final CustomerRepo customerRepo;
 
         public AddRepairRequest addRepairService(AddRepairRequest request) {

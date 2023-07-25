@@ -1,11 +1,7 @@
-package com.app.repo;
-
-import java.util.Optional;
+package com.app.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import com.app.model.Inward_Invoice;
 
 public interface InwardInvoiceRepo extends JpaRepository<Inward_Invoice, String> {
-
-     // Optional<Inward_Invoice> findByInvoice_No(int invoice_no);
 }

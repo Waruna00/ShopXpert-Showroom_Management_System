@@ -6,18 +6,22 @@ import Form from "react-bootstrap/Form";
 import { Button } from "react-bootstrap";
 import "./style/ServiceRepairRequest.css";
 import techImg from "../../Images/Tech.jpg";
+import { useContext } from "react";
+import { ServiceContext } from "../../Context/ServiceContext";
 
 export default function ServiceUpdate() {
   const [billData, setBillData] = useState({});
   const [updatedData, setUpdatedData] = useState({});
+  const { serviceNo } = useContext(ServiceContext);
   var data = {};
   useEffect(() => {
+    console.log("Service No : ", "1");
     fetch("http://localhost:8080/api/technician/findbyid", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ invoiceno: "1" }),
+      body: JSON.stringify({ invoiceno: "2" }),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -42,9 +46,9 @@ export default function ServiceUpdate() {
         console.log("New Invoice :", data);
         document.getElementById("job-number").value =
           "CS - " + billData.invoiceno;
-        document.getElementById("item-name").value = billData.itemname;
-        document.getElementById("item-serial").value = billData.serial;
-        document.getElementById("item-des").value = billData.itemdescription;
+        document.getElementById("item-name").value = data.item_name;
+        document.getElementById("item-serial").value = data.serial;
+        document.getElementById("item-des").value = data.item_description;
         document.getElementById("cus-code").value = billData.customercode;
         document.getElementById("cus-name").value = billData.customername;
         document.getElementById("cus-email").value = billData.customeremail;
@@ -74,9 +78,9 @@ export default function ServiceUpdate() {
     var cusPhone = document.getElementById("cus-phone").value;
 
     const tempcustomer = {
-        cus_Code: cusCode,
-        email: cusEmail,
-        phone: cusPhone,
+      cus_Code: cusCode,
+      email: cusEmail,
+      phone: cusPhone,
     };
 
     setUpdatedData({

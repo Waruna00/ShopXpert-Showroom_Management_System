@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CustomerService {
 
-    private final com.app.repo.CustomerRepo repository;
+    private final com.app.repository.CustomerRepo repository;
 
     public List<Customer> getAllCustomer() {
         return repository.findAll();

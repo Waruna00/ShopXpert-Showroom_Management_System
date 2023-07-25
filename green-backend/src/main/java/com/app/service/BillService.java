@@ -10,8 +10,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class BillService {
 
-    private final com.app.repo.BillRepo repository;
-    private final com.app.repo.UserRepository userRepo;
+    private final com.app.repository.BillRepo repository;
+    private final com.app.repository.UserRepo userRepo;
 
     public CreateBillRequest create(CreateBillRequest request) {
 

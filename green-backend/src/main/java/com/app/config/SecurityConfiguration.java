@@ -61,6 +61,7 @@ public class SecurityConfiguration {
             "/swagger-ui.html",
             "/api/product/**",
             "/api/technician/**",
+            "/api/order/**",
             "/api/customer/**",
             "/api/bill/**")
         .permitAll()

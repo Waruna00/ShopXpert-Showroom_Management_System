@@ -31,9 +31,9 @@ public class ProductController {
         return ResponseEntity.ok(service.getProduct(request));
     }
 
-    @GetMapping("allproducts")
-    public ResponseEntity<List<Product>> findAll() {
-        return ResponseEntity.ok(service.findAll());
+    @GetMapping("/allproducts")
+    public List<Product> findAll() {
+        return service.findAll();
     }
 
     // @PostMapping("addItem")

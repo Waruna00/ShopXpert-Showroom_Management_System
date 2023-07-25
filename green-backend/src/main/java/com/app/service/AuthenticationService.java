@@ -2,7 +2,7 @@ package com.app.service;
 
 import com.app.config.JwtService;
 import com.app.model.user.User;
-import com.app.repo.UserRepository;
+import com.app.repository.UserRepo;
 import com.app.request.AuthenticationRequest;
 import com.app.request.InfoRequest;
 import com.app.request.RegisterRequest;
@@ -26,7 +26,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
-  private final UserRepository repository;
+  private final UserRepo repository;
   private final PasswordEncoder passwordEncoder;
   private final JwtService jwtService;
   private final AuthenticationManager authenticationManager;

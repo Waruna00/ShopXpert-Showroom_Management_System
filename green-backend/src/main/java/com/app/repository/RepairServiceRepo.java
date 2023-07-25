@@ -1,10 +1,10 @@
-package com.app.repo;
+package com.app.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.app.model.RepairService;
 
-public interface RepairServiceRepository extends JpaRepository<RepairService, String> {
+public interface RepairServiceRepo extends JpaRepository<RepairService, String> {
 
     RepairService findTopByOrderByServicenoDesc();
 

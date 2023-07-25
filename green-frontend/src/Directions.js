@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState,useContext} from "react";
 import {
   BrowserRouter as Router,
   Route,
@@ -15,11 +15,16 @@ import SRR from "./Invoices/SRR";
 import CS from "./Invoices/CS";
 import ServiceTracker from "./pages/technician/ServiceTracker";
 import ServiceUpdate from "./pages/technician/ServiceUpdate";
+import CreateOrder from "./pages/storekeeper/CreateOrder";
+import InventoryTracker from "./pages/storekeeper/InventoryTracker";
+import { ServiceContext } from "./Context/ServiceContext";
 
 export default function Directions() {
+  const[jobNo, setJobNo] = useState("");
   return (
     <div>
       <Router>
+        <ServiceContext.Provider value={{jobNo,setJobNo}}>
         <Routes>
           <Route exact path="/" element={<LoginPage />} />
           <Route path="/sdf" element={<Sdf />} />
@@ -34,7 +39,10 @@ export default function Directions() {
           <Route path="/CS.Invoice" element={<CS />} />
           <Route path="/ServiceTracker" element={<ServiceTracker />} />
           <Route path="/ServiceUpdate" element={<ServiceUpdate />} />
+          <Route path="/CreateOrder" element={<CreateOrder />} />
+          <Route path="/InventoryTracker" element={<InventoryTracker />} />
         </Routes>
+        </ServiceContext.Provider>
       </Router>
     </div>
   );
