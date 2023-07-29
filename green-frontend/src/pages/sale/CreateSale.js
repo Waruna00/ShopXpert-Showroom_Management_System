@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import NavBar from "../../comp/NavBar";
-import { Row, Col, Table } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
@@ -37,7 +37,7 @@ function TableRows({ rows, tableRowRemove }) {
         </td>
         <td>
           <Button className="row-btn" variant="secondary">
-             Serial
+            Serial
           </Button>
         </td>
         <td>
@@ -60,7 +60,7 @@ function setData(data) {
   document.getElementById("item-price").value = data.price;
 }
 
-export default function Index() {
+export default function CreateSale() {
   const [updated, setUpdated] = useState("");
 
   const handleKeyDownQty = (event) => {

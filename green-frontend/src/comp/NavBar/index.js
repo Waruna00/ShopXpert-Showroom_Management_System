@@ -30,33 +30,26 @@ function NavBar() {
         </Link>
       </div>
       <div className="btn_div">
-        <Nav.Link
-          onClick={() => {
-            navigate("/sale");
-          }}
-        >
-          Sale
-        </Nav.Link>
+        <NavDropdown title="Sale" id="basic-nav-dropdown">
+          <NavDropdown.Item href="#action/3.1">Cash Sale</NavDropdown.Item>
+          <NavDropdown.Item href="#action/3.2">Sales Tracker</NavDropdown.Item>
+          <NavDropdown.Item href="#action/3.4">Price Tracker</NavDropdown.Item>
+        </NavDropdown>
         <NavDropdown title="Inventory" id="basic-nav-dropdown">
-          <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-          <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-          <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-          <NavDropdown.Divider />
-          <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
+          <NavDropdown.Item href="#action/3.1">Stock Inward</NavDropdown.Item>
+          <NavDropdown.Item href="#action/3.2">Stock Outward</NavDropdown.Item>
+          <NavDropdown.Item href="#action/3.3">
+            Inventory Tracker
+          </NavDropdown.Item>
         </NavDropdown>
         <NavDropdown title="Finance" id="basic-nav-dropdown">
-          <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-          <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-          <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-          <NavDropdown.Divider />
-          <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
+          <NavDropdown.Item href="#action/3.1">Dayend</NavDropdown.Item>
         </NavDropdown>
-        <NavDropdown title="Price" id="basic-nav-dropdown">
-          <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-          <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-          <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-          <NavDropdown.Divider />
-          <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
+        <NavDropdown title="Account" id="basic-nav-dropdown">
+          <NavDropdown.Item href="#action/3.1">User Details</NavDropdown.Item>
+          <NavDropdown.Item href="#action/3.1">
+            Change Password
+          </NavDropdown.Item>
         </NavDropdown>
         {user && user.jwt ? (
           <Button

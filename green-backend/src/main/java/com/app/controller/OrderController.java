@@ -10,6 +10,7 @@ import com.app.model.Order;
 import com.app.model.OrderProduct;
 import com.app.request.AddOrderProduct;
 import com.app.request.GetOrder;
+import com.app.request.UpdateOrderStatus;
 
 @RestController
 @CrossOrigin("http://localhost:3000")
@@ -40,6 +41,18 @@ public class OrderController {
     @PostMapping("/findOrderProductsById")
     public List<OrderProduct> findOrderProductsById(@RequestBody GetOrder request) {
         return service.findOrderProductsByOrderId(request);
+    }
+
+    @GetMapping("/findAll")
+    public List<Order> findAll() {
+        return service.findAll();
+    }
+
+
+    
+    @PutMapping("/statusupdate")
+    public ResponseEntity<Order> updateOrderStatus(@RequestBody UpdateOrderStatus request) {
+        return ResponseEntity.ok(service.updateOrderStatus(request));
     }
 
 }

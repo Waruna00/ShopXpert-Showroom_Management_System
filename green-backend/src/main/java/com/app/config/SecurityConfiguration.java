@@ -63,6 +63,8 @@ public class SecurityConfiguration {
             "/api/technician/**",
             "/api/order/**",
             "/api/customer/**",
+            "/api/item/**",
+            "/api/inwardinvoice/**",
             "/api/bill/**")
         .permitAll()
 

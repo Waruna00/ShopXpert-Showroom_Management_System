@@ -6,57 +6,36 @@ import Form from "react-bootstrap/Form";
 import { Button } from "react-bootstrap";
 import "./style/ServiceRepairRequest.css";
 import techImg from "../../Images/Tech.jpg";
-import { useContext } from "react";
-import { ServiceContext } from "../../Context/ServiceContext";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function ServiceUpdate() {
-  const [billData, setBillData] = useState({});
   const [updatedData, setUpdatedData] = useState({});
-  const { serviceNo } = useContext(ServiceContext);
-  var data = {};
+  const location = useLocation();
+  let navigation = useNavigate();
+
   useEffect(() => {
-    console.log("Service No : ", "1");
     fetch("http://localhost:8080/api/technician/findbyid", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ invoiceno: "2" }),
+      body: JSON.stringify({ invoiceno: location.state.jobNo }),
     })
       .then((response) => response.json())
       .then((data) => {
-        //setCustomer(data);
-        console.log("Invoice :", data);
-        setBillData({
-          invoiceno: data.serviceno,
-          itemname: data.item_name,
-          serial: data.serial,
-          itemdescription: data.item_description,
-          customercode: data.customer.cus_Code,
-          customername:
-            data.customer.first_Name + " " + data.customer.last_Name,
-          customeremail: data.customer.email,
-          customerphone: data.customer.phone,
-          status: data.status,
-          estimation: data.estimation,
-          repairdate: data.date,
-          repaircost: data.cost,
-          repairdetails: data.description,
-        });
-        console.log("New Invoice :", data);
-        document.getElementById("job-number").value =
-          "CS - " + billData.invoiceno;
+        document.getElementById("job-number").value = "CS - " + data.serviceno;
         document.getElementById("item-name").value = data.item_name;
         document.getElementById("item-serial").value = data.serial;
         document.getElementById("item-des").value = data.item_description;
-        document.getElementById("cus-code").value = billData.customercode;
-        document.getElementById("cus-name").value = billData.customername;
-        document.getElementById("cus-email").value = billData.customeremail;
-        document.getElementById("cus-phone").value = billData.customerphone;
-        document.getElementById("job-details").value = billData.repairdetails;
-        document.getElementById("job-estimation").value = billData.estimation;
-        document.getElementById("job-date").value = billData.repairdate;
-        document.getElementById("job-cost").value = billData.repaircost;
+        document.getElementById("cus-code").value = data.customer.cus_Code;
+        document.getElementById("cus-name").value =
+          data.customer.first_Name + " " + data.customer.last_Name;
+        document.getElementById("cus-email").value = data.customer.email;
+        document.getElementById("cus-phone").value = data.customer.phone;
+        document.getElementById("job-details").value = data.description;
+        document.getElementById("job-estimation").value = data.estimation;
+        document.getElementById("job-date").value = data.date;
+        document.getElementById("job-cost").value = data.cost;
       })
       .catch((error) => {
         console.error("Error fetching customer details:", error);
@@ -77,12 +56,6 @@ export default function ServiceUpdate() {
     var cusEmail = document.getElementById("cus-email").value;
     var cusPhone = document.getElementById("cus-phone").value;
 
-    const tempcustomer = {
-      cus_Code: cusCode,
-      email: cusEmail,
-      phone: cusPhone,
-    };
-
     setUpdatedData({
       serviceno: parseInt(jobNumber.replace("CS - ", "")),
       item_name: itemName,
@@ -93,20 +66,31 @@ export default function ServiceUpdate() {
       cost: jobCost,
       date: jobDate,
       item_description: itemDes,
-      customer: tempcustomer,
+      customer: {
+        cus_Code: cusCode,
+        email: cusEmail,
+        phone: cusPhone,
+      },
     });
-    console.log("Updated : ", updatedData);
 
     const requestOptions = {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(updatedData),
     };
-
-    fetch("http://localhost:8080/api/technician/update", requestOptions)
-      .then((response) => response.json())
-      .then((data) => console.log(data))
-      .catch((error) => console.log(error));
+    if (window.confirm("Are you sure you want to update this service?")) {
+      fetch("http://localhost:8080/api/technician/update", requestOptions)
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          navigation("/ServiceTracker");
+          window.confirm("Service updated successfully.");
+        })
+        .catch((error) => {
+          console.log(error);
+          window.confirm("Error updating service. Please try again.");
+        });
+    }
   }
 
   return (
@@ -131,7 +115,6 @@ export default function ServiceUpdate() {
                     type="text"
                     id="job-number"
                     placeholder="Job Number"
-                    value={"CS - " + billData.invoiceno}
                     readOnly
                   />
                 </Col>
@@ -170,7 +153,6 @@ export default function ServiceUpdate() {
                   <Form.Control
                     type="text"
                     id="cus-code"
-                    value={billData.customercode}
                     placeholder="Customer Code"
                     readOnly
                   />
@@ -181,7 +163,6 @@ export default function ServiceUpdate() {
                   <Form.Control
                     type="text"
                     id="cus-name"
-                    value={billData.customername}
                     placeholder="Customer Name"
                     readOnly
                   />
@@ -193,7 +174,6 @@ export default function ServiceUpdate() {
                   <Form.Control
                     type="text"
                     id="cus-email"
-                    value={billData.customeremail}
                     placeholder="Email Address"
                     readOnly
                   />
@@ -204,7 +184,6 @@ export default function ServiceUpdate() {
                   <Form.Control
                     type="text"
                     id="cus-phone"
-                    value={billData.customerphone}
                     placeholder="Phone Number"
                     readOnly
                   />
@@ -244,7 +223,6 @@ export default function ServiceUpdate() {
                     type="text"
                     placeholder="Repair Date"
                     id="job-date"
-                    value={billData.repairdate}
                     readOnly
                   />
                 </Col>

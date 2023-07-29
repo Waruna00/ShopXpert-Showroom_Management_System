@@ -17,7 +17,7 @@ import lombok.Data;
 @AllArgsConstructor
 @Entity
 @Table(name = "Inward_Invoice")
-public class Inward_Invoice {
+public class InwardInvoice {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

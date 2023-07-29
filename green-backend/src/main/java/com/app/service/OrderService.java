@@ -1,16 +1,13 @@
 package com.app.service;
 
 import java.util.List;
-import java.util.Optional;
-
 import org.springframework.stereotype.Service;
 import com.app.model.Order;
 import com.app.model.OrderProduct;
 import com.app.request.AddOrderProduct;
 import com.app.request.GetOrder;
-import com.app.request.GetProduct;
+import com.app.request.UpdateOrderStatus;
 import com.app.model.OrderProductKey;
-import com.app.model.Product;
 
 import lombok.RequiredArgsConstructor;
 
@@ -69,5 +66,15 @@ public class OrderService {
                 return orderProductRepository.findByOrderId(request.getOrderid());
         }
 
-        
+        public List<Order> findAll() {
+                return repository.findAll();
+        }
+
+        public Order updateOrderStatus(UpdateOrderStatus request) {
+                Order order = repository.findById( request.getOrderId() )
+                                .orElseThrow(() -> new RuntimeException("order not found"));
+                order.setOrderStatus(request.getStatus());
+                return repository.save(order);
+        }
+
 }

@@ -4,58 +4,39 @@ import { Form } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import NavBar from "../../comp/NavBar";
-import "./style/ServiceTracker.css";
 import { useNavigate } from "react-router-dom";
 
 function TableRows({ rows, navigation }) {
-  const handleView = (jobNo) => {
-    navigation(`/ServiceUpdate`, { state: { jobNo } });
+  const handleView = (order_no, date, status, created_by) => {
+    navigation(`/UpdateOrder`, {
+      state: { order_no, date, status, created_by },
+    });
   };
 
   return rows.map((rowsData, index) => {
-    var {
-      no,
-      itemName,
-      itemDes,
-      serviceDetails,
-      date,
-      estimation,
-      status,
-      customer,
-    } = rowsData;
+    var { order_no, date, status, created_by } = rowsData;
 
     return (
       <tr key={index}>
         <td>
-          <Form.Label>{no}</Form.Label>
+          <Form.Label>{order_no}</Form.Label>
         </td>
         <td>
           <Form.Label>{date}</Form.Label>
         </td>
         <td>
-          <Form.Label>{itemName}</Form.Label>
-        </td>
-        <td>
-          <Form.Label>{itemDes}</Form.Label>
-        </td>
-        <td>
-          <Form.Label>{serviceDetails}</Form.Label>
-        </td>
-        <td>
-          <Form.Label>{estimation}</Form.Label>
-        </td>
-        <td>
           <Form.Label>{status}</Form.Label>
         </td>
         <td>
-          <Form.Label>{customer}</Form.Label>
+          <Form.Label>{created_by}</Form.Label>
         </td>
+
         <td>
           <Button
             className="row-btn"
             variant="btn btn-secondary"
             onClick={() => {
-              handleView(no);
+              handleView(order_no, date, status, created_by);
             }}
           >
             View
@@ -66,27 +47,23 @@ function TableRows({ rows, navigation }) {
   });
 }
 
-export default function ServiceTracker(props) {
+export default function ViewOrder(props) {
   const [rows, initRow] = useState([]);
-  const [services, setServices] = useState([]);
+  const [orders, setOrders] = useState([]);
   const navigation = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:8080/api/technician/getall")
+    fetch("http://localhost:8080/api/order/findAll")
       .then((response) => response.json())
       .then((data) => {
-        setServices(data);
-        services.forEach((service) => console.log(service));
+        setOrders(data);
+        orders.forEach((order) => console.log(order));
         if (data.length > 0) {
-          const rows = data.map((service) => ({
-            no: service.serviceno,
-            itemName: service.item_name,
-            itemDes: service.item_description,
-            serviceDetails: service.description,
-            date: service.date,
-            estimation: service.estimation,
-            status: service.status,
-            customer: service.customer.first_Name,
+          const rows = data.map((order) => ({
+            order_no: order.orderId,
+            date: order.date,
+            status: order.orderStatus,
+            created_by: "Admin",
           }));
           initRow(rows);
         }
@@ -130,14 +107,10 @@ export default function ServiceTracker(props) {
         <table id="tbl" className="table table-striped">
           <thead>
             <tr>
-              <th>Invoice No</th>
+              <th>Order No</th>
               <th>Date</th>
-              <th>Item Name</th>
-              <th>Item Description</th>
-              <th>Service Details</th>
-              <th>Estimation</th>
               <th>Status</th>
-              <th>Customer</th>
+              <th>Created By</th>
               <th>View / Edit</th>
             </tr>
           </thead>

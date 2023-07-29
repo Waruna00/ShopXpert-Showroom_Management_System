@@ -8,7 +8,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-public interface OrderProductRepo extends JpaRepository<OrderProduct, String> {  
+public interface OrderProductRepo extends JpaRepository<OrderProduct, String> {
     @Query("SELECT op FROM OrderProduct op WHERE op.order.id = :orderId")
-List<OrderProduct> findByOrderId(@Param("orderId") String orderId);
+    List<OrderProduct> findByOrderId(@Param("orderId") String orderId);
+
+    // List<OrderProduct> findByOrderId(int orderId);
+    //List<OrderProduct> findByOrderId(int orderId);
+
 }

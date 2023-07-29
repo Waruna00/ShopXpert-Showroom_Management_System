@@ -1,7 +1,7 @@
 package com.app.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import com.app.model.Inward_Invoice;
+import com.app.model.InwardInvoice;
 
-public interface InwardInvoiceRepo extends JpaRepository<Inward_Invoice, String> {
+public interface InwardInvoiceRepo extends JpaRepository<InwardInvoice, Integer> {
 }

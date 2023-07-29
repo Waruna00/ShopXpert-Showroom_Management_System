@@ -35,10 +35,4 @@ public class ProductController {
     public List<Product> findAll() {
         return service.findAll();
     }
-
-    // @PostMapping("addItem")
-    // public ResponseEntity<AddItem> addItem(
-    // @RequestBody AddItem request) {
-    // return ResponseEntity.ok(service.addItem(request));
-    // }
 }

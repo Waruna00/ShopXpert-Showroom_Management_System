@@ -33,6 +33,9 @@ public class Item {
     @JsonFormat(pattern = "yyyy-MM-dd")
     LocalDate Outward;
 
+    // Pending--> PEN, Available--> AVL, Sold--> SOL
+    private String status;
+
     @ManyToOne
     @JoinColumn(name = "product_code", nullable = false)
     private Product product;
@@ -43,7 +46,7 @@ public class Item {
 
     @ManyToOne
     @JoinColumn(name = "inward_invoice_no", nullable = true)
-    private Inward_Invoice inward_invoice;
+    private InwardInvoice inward_invoice;
 
     @OneToMany(mappedBy = "item")
     private Set<OrderItem> orderItems;
@@ -52,6 +55,7 @@ public class Item {
     // private Set<Bill> bills;
 
     // @ManyToMany
-    // @JoinTable(name = "order_item", joinColumns = @JoinColumn(name = "serial_no"), inverseJoinColumns = @JoinColumn(name = "order_id"))
+    // @JoinTable(name = "order_item", joinColumns = @JoinColumn(name =
+    // "serial_no"), inverseJoinColumns = @JoinColumn(name = "order_id"))
     // Set<Order> orders;
 }
