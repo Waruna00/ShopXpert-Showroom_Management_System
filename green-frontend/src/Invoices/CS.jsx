@@ -1,12 +1,13 @@
 import React, { useEffect } from "react";
 import { Button } from "react-bootstrap";
+import { useLocation } from "react-router-dom";
+import { Form } from "react-bootstrap";
 import {
   MDBCard,
   MDBCardBody,
   MDBContainer,
   MDBRow,
   MDBCol,
-  MDBBtn,
   MDBIcon,
   MDBTypography,
   MDBTable,
@@ -15,9 +16,37 @@ import {
 } from "mdb-react-ui-kit";
 
 export default function CS() {
+  const location = useLocation();
+  const Data = location.state;
   useEffect(() => {
     document.getElementById("printBtn").focus();
   }, []);
+
+  function TableRow() {
+    return Data.RowData.map((rowsData, index) => {
+      var { itemCode, itemName, qty, price, amount } = rowsData;
+      return (
+        <tr key={index}>
+          <td>{index + 1}</td>
+          <td>
+            <Form.Label>{itemCode}</Form.Label>
+          </td>
+          <td>
+            <Form.Label>{itemName}</Form.Label>
+          </td>
+          <td>
+            <Form.Label>{qty}</Form.Label>
+          </td>
+          <td>
+            <Form.Label>{price}</Form.Label>
+          </td>
+          <td>
+            <Form.Label>{parseFloat(amount).toFixed(2)}</Form.Label>
+          </td>
+        </tr>
+      );
+    });
+  }
   return (
     <MDBContainer className="py-5">
       <MDBCard className="p-4">
@@ -69,11 +98,12 @@ export default function CS() {
               <MDBTypography listUnStyled>
                 <li className="text-muted">
                   <MDBIcon fas icon="circle" style={{ color: "#84B0CA" }} />
-                  <span className="fw-bold ms-1">No : </span> CS-123-456
+                  <span className="fw-bold ms-1">No : </span> {Data.BillNo}
                 </li>
                 <li className="text-muted">
                   <MDBIcon fas icon="circle" style={{ color: "#84B0CA" }} />
-                  <span className="fw-bold ms-1">Date : </span>Jun 23,2021
+                  <span className="fw-bold ms-1">Date : </span>
+                  {Date().toString().slice(0, 15)}
                 </li>
               </MDBTypography>
             </MDBCol>
@@ -86,61 +116,60 @@ export default function CS() {
               >
                 <tr>
                   <th scope="col">#</th>
-                  <th scope="col">Item</th>
+                  <th scope="col">Item Code</th>
+                  <th scope="col">Item Name</th>
                   <th scope="col">Qty</th>
                   <th scope="col">Unit Price</th>
                   <th scope="col">Amount</th>
                 </tr>
               </MDBTableHead>
               <MDBTableBody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>Pro Package</td>
-                  <td>4</td>
-                  <td>$200</td>
-                  <td>$800</td>
-                </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>Web hosting</td>
-                  <td>1</td>
-                  <td>$10</td>
-                  <td>$10</td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td>Consulting</td>
-                  <td>1 year</td>
-                  <td>$300</td>
-                  <td>$300</td>
-                </tr>
+                <TableRow />
               </MDBTableBody>
             </MDBTable>
           </MDBRow>
           <MDBRow>
-            <MDBCol xl="8">
-              <p className="ms-3">
-                Add additional notes and payment information
-              </p>
-            </MDBCol>
-            <MDBCol xl="3">
-              <MDBTypography listUnStyled>
-                <li className="text-muted ms-3">
-                  <span class="text-black me-4">SubTotal</span>$1110
-                </li>
-              </MDBTypography>
+            <MDBCol xl="8"></MDBCol>
+            <MDBCol xl="4">
               <p className="text-black float-start">
                 <span className="text-black me-3"> Total Amount</span>
-                <span style={{ fontSize: "25px" }}>$1221</span>
+                <span style={{ fontSize: "20px" }}>
+                  <b> Rs. {parseFloat(Data.state.total).toFixed(2)}</b>
+                </span>
               </p>
             </MDBCol>
           </MDBRow>
           <hr />
           <MDBRow>
-            <MDBCol xl="10">
-              <p>Thank you for your purchase</p>
+            <MDBCol xl="12">
+              <p>
+                <b>Terms & Conditions</b>
+              </p>
+              <p style={{ textAlign: "justify" }}>
+                All items are non-refundable and non returnable. Warranty is
+                void if the product is damaged by misuse, abuse, alteration,
+                accident, improper handling or operation, or if unauthorized
+                repairs are attempted or made. This warranty does not cover any
+                third party software or virus related problems. GREEN Computer
+                Solution (PVT) Ltd. is not responsible for any data loss or
+                damage to any software or hardware. GREEN Computer Solution
+                (PVT) Ltd. is not responsible for any consequential or
+                incidental damages. All items are subject to availability.
+                Prices are subject to change without prior notice.
+                <hr />
+                <b>
+                  I hereby agree to the above terms and conditions and authorize
+                  GREEN Computer Solution (PVT) Ltd. to perform the repair(s) as
+                  described above.
+                </b>
+                <br></br>
+                <br></br>
+                <br></br>
+                --------------------------------------
+                <br></br>
+                [Customer Signature]
+              </p>
             </MDBCol>
-            <MDBCol xl="2"></MDBCol>
           </MDBRow>
         </MDBCardBody>
       </MDBCard>

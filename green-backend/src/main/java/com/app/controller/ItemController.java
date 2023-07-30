@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.app.model.Item;
+import com.app.model.Product;
 import com.app.request.AddItem;
 import com.app.request.UpdateItemRequest;
 import com.app.service.ItemService;
@@ -40,6 +41,20 @@ public class ItemController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(updatedItem);
+    }
+
+    @GetMapping("/availableitems")
+    public List<Item> findAvailableItemsByProduct(@RequestParam String productId) {
+        Product product = new Product();
+        product.setProductCode(productId);
+        return itemService.findAvailableItemsByProduct(product);
+    }
+
+    @GetMapping("/availableitemscount")
+    public int findAvailableItemsCountByProduct(@RequestParam String productId) {
+        Product product = new Product();
+        product.setProductCode(productId);
+        return (itemService.findAvailableItemsByProduct(product)).size();
     }
 
 }

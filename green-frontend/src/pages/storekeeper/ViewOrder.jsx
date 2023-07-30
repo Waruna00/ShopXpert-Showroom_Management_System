@@ -72,7 +72,6 @@ export default function ViewOrder(props) {
         console.error("Error fetching service details:", error);
       });
   }, []);
-
   const [searchTerm, setSearchTerm] = useState("");
 
   const handleSearch = (event) => {

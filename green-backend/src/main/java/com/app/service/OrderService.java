@@ -50,7 +50,7 @@ public class OrderService {
                 orderProductRepository.save(orderProduct);
                 return AddOrderProduct.builder()
                                 .orderid(orderProduct.getOrder().getOrderId())
-                                .productcode(orderProduct.getProduct().getProduct_code())
+                                .productcode(orderProduct.getProduct().getProductCode())
                                 .quantity(orderProduct.getQuantity())
                                 .build();
         }

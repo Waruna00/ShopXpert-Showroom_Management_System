@@ -24,12 +24,11 @@ public class Bill {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate BillDate;
     private Time BillTime;
-    private String Total;
+    private Float Total;
     private String Status;
 
-
     // Relationships
-    
+
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;
@@ -38,9 +37,8 @@ public class Bill {
     @JoinColumn(name = "user", nullable = false)
     private User user;
 
-    @ManyToMany
-    @JoinTable(name = "bill_product", joinColumns = @JoinColumn(name = "invoiceNo"), inverseJoinColumns = @JoinColumn(name = "product_code"))
-    Set<Product> bill_products;
+    @OneToMany(mappedBy = "bill")
+    private Set<BillProduct> billProducts;
 
     @ManyToMany
     @JoinTable(name = "bill_item", joinColumns = @JoinColumn(name = "invoiceNo"), inverseJoinColumns = @JoinColumn(name = "serial_no"))
@@ -71,11 +69,11 @@ public class Bill {
         BillTime = billTime;
     }
 
-    public String getTotal() {
+    public Float getTotal() {
         return Total;
     }
 
-    public void setTotal(String total) {
+    public void setTotal(Float total) {
         Total = total;
     }
 

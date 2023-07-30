@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.app.model.Item;
+import com.app.model.Product;
 import com.app.request.AddItem;
 import com.app.request.UpdateItemRequest;
 
@@ -46,4 +47,10 @@ public class ItemService {
                 .orElseThrow(() -> new RuntimeException("Inward invoice not found")));
         return repository.save(item);
     }
+
+    public List<Item> findAvailableItemsByProduct(Product product) {
+        return repository.findByProductAndStatus(product, "AVL");
+    }
+
+    
 }

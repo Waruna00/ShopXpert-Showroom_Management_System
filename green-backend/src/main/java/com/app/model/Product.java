@@ -1,10 +1,7 @@
 package com.app.model;
 
-import java.util.List;
 import java.util.Set;
-
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,40 +17,39 @@ import lombok.NoArgsConstructor;
 @Table(name = "product")
 public class Product {
     @Id
-    private String Product_code;
-    private String Name;
-    private String Description;
-    private String Price;
+    @Column(name = "product_code")
+    private String productCode;
+    private String name;
+    private String description;
+    private String price;
 
     @OneToMany(mappedBy = "product")
     private Set<Item> items;
 
-    // @ManyToMany
-    // @JoinTable(name = "order_product", joinColumns = @JoinColumn(name =
-    // "product_code"), inverseJoinColumns = @JoinColumn(name = "order_id"))
-    // Set<Order> orders;
-
     @OneToMany(mappedBy = "product")
     private Set<OrderProduct> orderProducts;
 
-    public String getProduct_code() {
-        return Product_code;
+    @OneToMany(mappedBy = "product")
+    private Set<BillProduct> billProducts;
+
+    public String getProductCode() {
+        return productCode;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
-    public void setName(String name) {
-        Name = name;
+    public void setName(String newName) {
+        name = newName;
     }
 
     public String getDescription() {
-        return Description;
+        return description;
     }
 
     public String getPrice() {
-        return Price;
+        return price;
     }
 
 }

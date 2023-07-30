@@ -4,11 +4,12 @@ import NavBar from "../../comp/NavBar";
 import { Row, Col } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import { useNavigate } from "react-router-dom";
 
 var NetTotal = 0.0;
+var amt = 0.0;
 
 function TableRows({ rows, tableRowRemove }) {
-  console.log(rows);
   return rows.map((rowsData, index) => {
     var { itemCode, itemName, itemDes, price, qty, amount } = rowsData;
 
@@ -36,11 +37,6 @@ function TableRows({ rows, tableRowRemove }) {
           <Form.Label>{amount}</Form.Label>
         </td>
         <td>
-          <Button className="row-btn" variant="secondary">
-            Serial
-          </Button>
-        </td>
-        <td>
           <Button
             className="row-btn"
             variant="danger"
@@ -53,28 +49,84 @@ function TableRows({ rows, tableRowRemove }) {
     );
   });
 }
-
 function setData(data) {
   document.getElementById("item-name").value = data.name;
   document.getElementById("item-des").value = data.description;
   document.getElementById("item-price").value = data.price;
 }
-
 export default function CreateSale() {
   const [updated, setUpdated] = useState("");
+  const [addButtonCondition, setAddButtonCondition] = useState(false);
+  const [rows, initRow] = useState([]);
+  const navigate = useNavigate();
 
+  function handleSaveKeyDown() {
+    alert("Enter key pressed");
+
+    console.log(NetTotal);
+    const billData = {
+      user: parseInt(document.getElementById("user-code").value),
+      total: parseInt(document.getElementById("net-total").value),
+      products: rows.map((rows) => ({
+        productCode: rows.itemCode,
+        quantity: parseInt(rows.qty),
+      })),
+    };
+
+    console.log("BillFata : ", billData);
+
+    fetch("http://localhost:8080/api/bill/createbill", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(billData),
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+        navigate("/CS.invoice", {
+          state: { state: billData, RowData: rows, BillNo: data },
+        });
+      })
+      .catch((error) => console.error(error));
+  }
+
+  function clearFeilds() {
+    document.getElementById("item-code").value = "";
+    document.getElementById("item-name").value = "";
+    document.getElementById("item-des").value = "";
+    document.getElementById("item-price").value = "";
+    document.getElementById("item-qty").value = "";
+    document.getElementById("item-amount").value = "";
+    setAddButtonCondition(false);
+  }
   const handleKeyDownQty = (event) => {
     if (event.key === "Enter") {
       var qty = event.target.value;
-      var price = document.getElementById("item-price").value;
-      var amount = qty * price * 1.0;
-      document.getElementById("item-amount").value = amount;
+      const itemCode = updated;
+      fetch(
+        `http://localhost:8080/api/item/availableitemscount?productId=${itemCode}`
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          if (qty <= data) {
+            var price = document.getElementById("item-price").value;
+            var amount = qty * price * 1.0;
+            document.getElementById("item-amount").value = amount;
+            setAddButtonCondition(true);
+          } else {
+            alert("Not enough items in the stock, Only " + data + " left");
+          }
+        })
+        .catch((error) => console.error(error));
     }
   };
   const handleKeyDownItemCode = (event) => {
     if (event.key === "Enter") {
       setUpdated(event.target.value);
-      console.log(updated);
 
       fetch("http://localhost:8080/api/product/get", {
         method: "POST",
@@ -89,12 +141,9 @@ export default function CreateSale() {
       document.getElementById("item-qty").focus();
     }
   };
-  const [rows, initRow] = useState([]);
-
   const addRowTable = () => {
     var amount = document.getElementById("item-amount").value;
-    NetTotal = parseFloat(NetTotal) + parseFloat(amount);
-    document.getElementById("net-total").value = NetTotal;
+
     const data = {
       itemCode: document.getElementById("item-code").value,
       itemName: document.getElementById("item-name").value,
@@ -103,8 +152,40 @@ export default function CreateSale() {
       price: document.getElementById("item-price").value,
       amount: document.getElementById("item-amount").value,
     };
-    initRow([...rows, data]);
-    console.log(rows);
+    const existingOrderIndex = rows.findIndex(
+      (rows) => rows.itemCode === data.itemCode
+    );
+    if (existingOrderIndex !== -1) {
+      const updatedItem = [...rows];
+      let actualQty = parseInt(updatedItem[existingOrderIndex].qty);
+      updatedItem[existingOrderIndex].qty = actualQty + parseInt(data.qty);
+      amt = data.amount;
+      let AM = parseFloat(updatedItem[existingOrderIndex].amount);
+      updatedItem[existingOrderIndex].amount = AM + parseFloat(data.amount);
+
+      fetch(
+        `http://localhost:8080/api/item/availableitemscount?productId=${data.itemCode}`
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          if (updatedItem[existingOrderIndex].qty <= data) {
+            NetTotal = parseFloat(NetTotal) + parseFloat(amt);
+            document.getElementById("net-total").value = NetTotal;
+
+            initRow(updatedItem);
+          } else {
+            alert("Not enough items in the stock, Only " + data + " left");
+          }
+        })
+        .catch((error) => console.error(error));
+    } else {
+      initRow([...rows, data]);
+      NetTotal = parseFloat(NetTotal) + parseFloat(amount);
+      document.getElementById("net-total").value = NetTotal;
+    }
+
+    // initRow([...rows, data]);
+    clearFeilds();
   };
   const tableRowRemove = (index) => {
     const dataRow = [...rows];
@@ -112,7 +193,6 @@ export default function CreateSale() {
     var amount =
       document.getElementsByTagName("tr")[index + 1].cells[6].childNodes[0]
         .textContent;
-    console.log(amount);
     NetTotal = parseFloat(NetTotal) - parseFloat(amount);
 
     document.getElementById("net-total").value = NetTotal;
@@ -124,7 +204,22 @@ export default function CreateSale() {
       <NavBar />
       <div className="main-page">
         <div>
-          <label className="h-txt-1">INVOICE NO : CS-DDMMYY-XXXXX</label>
+          <Row>
+            <Col xl={6}>
+              <label className="h-txt-1">CREATE CASH SALE</label>
+            </Col>
+            <Col xl={2}>
+              <Form.Label>Customer Code : </Form.Label>
+            </Col>
+            <Col xl={3}>
+              <Form.Control type="text" id="user-code"></Form.Control>
+            </Col>
+            <Col xl={1}>
+              <Button className="row-btn" variant="secondary">
+                Find
+              </Button>
+            </Col>
+          </Row>
         </div>
         <div className="card-comp" id="card-1">
           <Row style={{ width: "100%" }}>
@@ -166,7 +261,7 @@ export default function CreateSale() {
             <Col xl={2}>
               <Form.Control
                 type="text"
-                edita
+                editable="false"
                 id="item-name"
                 placeholder="Item Name"
                 readOnly
@@ -205,14 +300,26 @@ export default function CreateSale() {
               />
             </Col>
             <Col xl={1}>
-              <Button
-                className="row-btn"
-                variant="secondary"
-                onClick={addRowTable}
-                id="add-btn"
-              >
-                Add
-              </Button>
+              {addButtonCondition && (
+                <Button
+                  className="row-btn"
+                  variant="secondary"
+                  id="add-btn"
+                  onClick={addRowTable}
+                >
+                  Add
+                </Button>
+              )}
+              {!addButtonCondition && (
+                <Button
+                  className="row-btn"
+                  variant="secondary"
+                  disabled="true"
+                  id="add-btn"
+                >
+                  Add
+                </Button>
+              )}
             </Col>
           </Row>
         </div>
@@ -257,12 +364,20 @@ export default function CreateSale() {
           <Row style={{ marginTop: "15px" }}>
             <Col xl={8}></Col>
             <Col xl={2}>
-              <Button className="row-btn" variant="secondary">
+              <Button
+                className="row-btn"
+                variant="secondary"
+                onClick={console.log("Clear Button")}
+              >
                 Clear
               </Button>
             </Col>
             <Col xl={2}>
-              <Button className="row-btn" variant="secondary">
+              <Button
+                className="row-btn"
+                variant="secondary"
+                onClick={handleSaveKeyDown}
+              >
                 Save
               </Button>
             </Col>

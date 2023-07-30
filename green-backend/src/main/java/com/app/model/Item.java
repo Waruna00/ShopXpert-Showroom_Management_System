@@ -7,8 +7,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -50,12 +48,4 @@ public class Item {
 
     @OneToMany(mappedBy = "item")
     private Set<OrderItem> orderItems;
-
-    // @ManyToMany(mappedBy="items")
-    // private Set<Bill> bills;
-
-    // @ManyToMany
-    // @JoinTable(name = "order_item", joinColumns = @JoinColumn(name =
-    // "serial_no"), inverseJoinColumns = @JoinColumn(name = "order_id"))
-    // Set<Order> orders;
 }
