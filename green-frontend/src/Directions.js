@@ -15,6 +15,9 @@ import { ServiceContext } from "./Context/ServiceContext";
 import ViewOrder from "./pages/storekeeper/ViewOrder";
 import UpdateOrder from "./pages/storekeeper/UpdateOrder";
 import StockInward from "./pages/storekeeper/StockInward";
+import DeliveryOrder from "./pages/sale/DeliveryOrder";
+import DayEnd from "./pages/sale/DayEnd";
+import StockOutward from "./pages/storekeeper/StockOutward";
 
 export default function Directions() {
   const [jobNo, setJobNo] = useState("");
@@ -30,6 +33,8 @@ export default function Directions() {
             {/* Cashire */}
             <Route path="/CreateSale" element={<Sale />} />
             <Route path="/CS.Invoice" element={<CS />} />
+            <Route path="/DeliveryOrder" element={<DeliveryOrder />} />
+            <Route path="/Dayend" element={<DayEnd />} />
 
             {/* Technician */}
             <Route path="/srr" element={<SRR />} />
@@ -46,6 +51,7 @@ export default function Directions() {
             <Route path="/ViewOrder" element={<ViewOrder />} />
             <Route path="/UpdateOrder" element={<UpdateOrder />} />
             <Route path="/StockInward" element={<StockInward />} />
+            <Route path="/StockOutward" element={<StockOutward />} />
 
             {/* Manager */}
             <Route path="/registration" element={<RegistrationForm />} />

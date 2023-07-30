@@ -10,6 +10,7 @@ import com.app.model.Item;
 import com.app.model.Product;
 import com.app.request.AddItem;
 import com.app.request.UpdateItemRequest;
+import com.app.request.UpdateItemStatusRequest;
 import com.app.service.ItemService;
 
 import lombok.RequiredArgsConstructor;
@@ -57,4 +58,9 @@ public class ItemController {
         return (itemService.findAvailableItemsByProduct(product)).size();
     }
 
+    @PutMapping("/updateitemstatus")
+    public ResponseEntity<Void> updateItemStatus(@RequestBody UpdateItemStatusRequest request) {
+        itemService.updateItemStatus(request.getSerials(), request.getStatus(), request.getBillNo());
+        return ResponseEntity.ok().build();
+    }
 }

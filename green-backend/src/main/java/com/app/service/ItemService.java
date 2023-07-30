@@ -19,6 +19,7 @@ public class ItemService {
     private final com.app.repository.ItemRepo repository;
     private final com.app.repository.ProductRepo productRepository;
     private final com.app.repository.InwardInvoiceRepo inwardRepository;
+    private final com.app.repository.BillRepo billRepository;
 
     public Item addItem(AddItem request) {
         var item = new Item();
@@ -52,5 +53,14 @@ public class ItemService {
         return repository.findByProductAndStatus(product, "AVL");
     }
 
-    
+    public void updateItemStatus(List<String> serial_nos, String newStatus, int billNo) {
+        for (String serial : serial_nos) {
+            Item item = repository.findById(serial).orElse(null);
+            if (item != null) {
+                item.setStatus(newStatus);
+                item.setBill(billRepository.findById(billNo).orElse(null));
+                repository.save(item);
+            }
+        }
+    }
 }
