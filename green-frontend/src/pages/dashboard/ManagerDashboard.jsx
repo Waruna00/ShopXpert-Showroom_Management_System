@@ -1,13 +1,21 @@
 import React from "react";
 import { UserProvider } from "../../UserProvider";
-import StoreKeeperNav from "../../comp/NavBar/StoreKeeperNav";
 import { Col, Row } from "react-bootstrap";
+import { AuthContext } from "../../Context/AuthContext";
+import { useEffect } from "react";
+import { useContext } from "react";
+import ManagerNav from "../../comp/NavBar/ManagerNav";
 
 export default function ManagerDashboard() {
+  const { authState } = useContext(AuthContext);
+
+  useEffect(() => {
+    //location.reload();
+  }, [authState]);
   return (
     <>
       <UserProvider>
-        <StoreKeeperNav />
+        <ManagerNav />
         <Row>
           <Col xl={1}></Col>
           <Col xl={10}>

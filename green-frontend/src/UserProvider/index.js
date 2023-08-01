@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState } from "react";
 import Cookies from "js-cookie";
+
 const UserContext = createContext();
 
 const UserProvider = ({ children }) => {

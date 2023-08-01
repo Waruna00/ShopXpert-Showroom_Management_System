@@ -5,9 +5,8 @@ import com.app.model.Product;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.stereotype.Repository;
 
-@Repository
+
 public interface ProductRepo extends JpaRepository<Product, String> {
     @Query("SELECT p FROM Product p")
     List<Product> findAllProducts();
@@ -18,5 +17,9 @@ public interface ProductRepo extends JpaRepository<Product, String> {
     List<Product> findByProductCodeIn(List<String> productCodes);
 
     Product findByProductCode(String productCode);
+
+    boolean existsByProductCode(String productcode);
+
+    
 
 }

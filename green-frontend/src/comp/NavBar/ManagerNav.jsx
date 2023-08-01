@@ -1,12 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { Button, Image } from "react-bootstrap";
+import { Button, Image, Nav } from "react-bootstrap";
 import NavDropdown from "react-bootstrap/NavDropdown";
+import NavSeparator from "react-bootstrap/NavDropdown";
 import logo from "../../Images/green-logo.png";
 import { AuthContext } from "../../Context/AuthContext";
-import { useContext } from "react";
 
-function TechnicianNav() {
+function ManagerNav() {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const { token, logout } = useContext(AuthContext);
@@ -19,36 +19,39 @@ function TechnicianNav() {
         </Link>
       </div>
       <div className="btn_div">
-        <NavDropdown title="Service" id="basic-nav-dropdown">
-          <NavDropdown.Item href="/ServiceRepairRequest">
-            Service Repair Request
+        <NavDropdown title="Sale" id="basic-nav-dropdown">
+          <NavDropdown.Item href="/CreateSale">Cash Sale</NavDropdown.Item>
+          <NavDropdown.Item disabled href="#action/3.2">
+            Sales Tracker
           </NavDropdown.Item>
-          <NavDropdown.Item href="/ServiceTracker">
-            Service Repair Tracker
+          <NavDropdown.Item disabled href="#action/3.4">
+            Price Tracker
           </NavDropdown.Item>
         </NavDropdown>
+
         <NavDropdown title="Inventory" id="basic-nav-dropdown">
-          <NavDropdown.Item disabled href="#action/3.1">
-            Stock Inward
-          </NavDropdown.Item>
-          <NavDropdown.Item disabled href="#action/3.2">
-            Stock Outward
-          </NavDropdown.Item>
+          <NavDropdown.Item href="/ManageOrder">Manage Order</NavDropdown.Item>
           <NavDropdown.Item href="/InventoryTracker">
             Inventory Tracker
           </NavDropdown.Item>
-        </NavDropdown>
-        <NavDropdown title="Finance" id="basic-nav-dropdown">
-          <NavDropdown.Item disabled href="/Dayend">
-            Dayend
+          <NavDropdown.Divider />
+          <NavDropdown.Item href="/AddProduct">Add Product</NavDropdown.Item>
+          <NavDropdown.Item href="/UpdateProduct">
+            Update Product
           </NavDropdown.Item>
         </NavDropdown>
+
+        <NavDropdown title="" id="basic-nav-dropdown">
+          <NavDropdown.Item href="/Dayend">Dayend</NavDropdown.Item>
+        </NavDropdown>
+
         <NavDropdown title="Account" id="basic-nav-dropdown">
           <NavDropdown.Item href="#action/3.1">User Details</NavDropdown.Item>
           <NavDropdown.Item href="#action/3.1">
             Change Password
           </NavDropdown.Item>
         </NavDropdown>
+
         {token ? (
           <Button
             className="me-5 nav_btn"
@@ -72,6 +75,7 @@ function TechnicianNav() {
             onClick={() => {
               logout();
               navigate("/");
+              window.location.reload();
             }}
           >
             Login
@@ -84,4 +88,4 @@ function TechnicianNav() {
   );
 }
 
-export default TechnicianNav;
+export default ManagerNav;

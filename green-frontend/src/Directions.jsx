@@ -1,11 +1,8 @@
-import React, { useContext, useState } from "react";
+import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import LoginPage from "./Login";
 import RegistrationForm from "./pages/registration/Registration";
-import {
-  CashierDashboard,
-  Dashboard,
-} from "./pages/dashboard/CashierDashboard";
+import { CashierDashboard } from "./pages/dashboard/CashierDashboard";
 import Sale from "./pages/sale/CreateSale";
 import ServiceRepairRequest from "./pages/technician/ServiceRequest";
 import SRR from "./Invoices/SRR";
@@ -29,88 +26,78 @@ import ManageOrder from "./pages/manager/ManageOrder";
 import AddSerial from "./pages/manager/AddSerial";
 import SRN from "./Invoices/SRN";
 import ManagerDashboard from "./pages/dashboard/ManagerDashboard";
+import AddProduct from "./pages/manager/AddProduct";
+import { useContext } from "react";
+import UpdateProduct from "./pages/manager/UpdateProduct";
 
 export default function Directions() {
-  const [authState, setAuthState] = useState({
-    token: localStorage.getItem("token"),
-    role: localStorage.getItem("role"),
-    login: (token, role) => {
-      setAuthState({ ...authState, token, role });
-    },
-    logout: () => {
-      localStorage.clear();
-      setAuthState({ ...authState, token: null, role: null });
-    },
-  });
+  const authState = useContext(AuthContext);
 
   return (
     <div>
-      <AuthContext.Provider value={{ authState, setAuthState }}>
-        <Router>
-          <Routes>
-            {/* Cashire */}
-            <Route exact path="/" element={<LoginPage />} />
-            {authState.role === "CASHIER" && (
-              <>
-                <Route path="/dashboard" element={<CashierDashboard />} />
-                <Route path="/CreateSale" element={<Sale />} />
-                <Route path="/CS.Invoice" element={<CS />} />
-                <Route path="/DeliveryOrder" element={<DeliveryOrder />} />
-                <Route path="/Dayend" element={<DayEnd />} />
-                <Route
-                  path="/InventoryTracker"
-                  element={<InventoryTracker />}
-                />
-              </>
-            )}
+      <Router>
+        <Routes>
+          <Route exact path="/" element={<LoginPage />} />
+          <Route path="*" element={<NotFoundPage />} />
 
-            {/* Technician */}
-            {authState.role === "TECHNICIAN" && (
-              <>
-                <Route path="/dashboard" element={<TechnicianDashboard />} />
-                <Route path="/srr" element={<SRR />} />
-                <Route
-                  path="/ServiceRepairRequest"
-                  element={<ServiceRepairRequest />}
-                />
-                <Route path="/ServiceTracker" element={<ServiceTracker />} />
-                <Route path="/ServiceUpdate" element={<ServiceUpdate />} />
-              </>
-            )}
-            <Route path="*" element={<NotFoundPage />} />
+          {/* Cashire */}
+          {authState.role === "CASHIER" && (
+            <>
+              <Route path="/dashboard" element={<CashierDashboard />} />
+              <Route path="/CreateSale" element={<Sale />} />
+              <Route path="/CS.Invoice" element={<CS />} />
+              <Route path="/DeliveryOrder" element={<DeliveryOrder />} />
+              <Route path="/Dayend" element={<DayEnd />} />
+              <Route path="/InventoryTracker" element={<InventoryTracker />} />
+            </>
+          )}
 
-            {/* Storekeeper */}
-            {authState.role === "STOREKEEPER" && (
-              <>
-                <Route path="/dashboard" element={<StoreKeeperDashboard />} />
-                <Route path="/CreateOrder" element={<CreateOrder />} />
-                <Route
-                  path="/InventoryTracker"
-                  element={<InventoryTracker />}
-                />
-                <Route path="/ViewOrder" element={<ViewOrder />} />
-                <Route path="/UpdateOrder" element={<UpdateOrder />} />
-                <Route path="/StockInward" element={<StockInward />} />
-                <Route path="/StockOutward" element={<StockOutward />} />
-              </>
-            )}
+          {/* Technician */}
+          {authState.role === "TECHNICIAN" && (
+            <>
+              <Route path="/dashboard" element={<TechnicianDashboard />} />
+              <Route path="/srr" element={<SRR />} />
+              <Route
+                path="/ServiceRepairRequest"
+                element={<ServiceRepairRequest />}
+              />
+              <Route path="/ServiceTracker" element={<ServiceTracker />} />
+              <Route path="/ServiceUpdate" element={<ServiceUpdate />} />
+              <Route path="/InventoryTracker" element={<InventoryTracker />} />
+            </>
+          )}
 
-            {/* Manager */}
-            {authState.role === "MANAGER" && (
-              <>
-                <Route path="/registration" element={<RegistrationForm />} />
-                <Route path="/dashboard" element={<ManagerDashboard />} />
-                <Route path="/ManageOrder" element={<ManageOrder />} />
-                <Route path="/AddSerial" element={<AddSerial />} />
-                <Route path="/StockRecievedNote" element={<SRN />} />
-              </>
-            )}
+          {/* Storekeeper */}
+          {authState.role === "STOREKEEPER" && (
+            <>
+              <Route path="/dashboard" element={<StoreKeeperDashboard />} />
+              <Route path="/CreateOrder" element={<CreateOrder />} />
+              <Route path="/InventoryTracker" element={<InventoryTracker />} />
+              <Route path="/ViewOrder" element={<ViewOrder />} />
+              <Route path="/UpdateOrder" element={<UpdateOrder />} />
+              <Route path="/StockInward" element={<StockInward />} />
+              <Route path="/StockOutward" element={<StockOutward />} />
+            </>
+          )}
 
-            {/* Customer */}
-            <Route path="/FindServiceJob" element={<FindJob />} />
-          </Routes>
-        </Router>
-      </AuthContext.Provider>
+          {/* Manager */}
+          {authState.role === "MANAGER" && (
+            <>
+              <Route path="/registration" element={<RegistrationForm />} />
+              <Route path="/dashboard" element={<ManagerDashboard />} />
+              <Route path="/ManageOrder" element={<ManageOrder />} />
+              <Route path="/AddSerial" element={<AddSerial />} />
+              <Route path="/StockRecievedNote" element={<SRN />} />
+              <Route path="/AddProduct" element={<AddProduct />} />
+              <Route path="/UpdateProduct" element={<UpdateProduct />} />
+              <Route path="/InventoryTracker" element={<InventoryTracker />} />
+            </>
+          )}
+
+          {/* Customer */}
+          <Route path="/FindServiceJob" element={<FindJob />} />
+        </Routes>
+      </Router>
     </div>
   );
 }

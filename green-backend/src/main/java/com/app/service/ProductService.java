@@ -32,14 +32,16 @@ public class ProductService {
     }
 
     public List<Product> findAll() {
-        return repository.findAllProductsAndItems();
+        return repository.findAllProducts();
     }
 
     public Optional<Product> getProduct(GetProduct request) {
         Optional<Product> product = repository.findById(request.getProductcode());
-
         return product;
+    }
 
+    public boolean existsByProductCode(String code) {
+        return repository.existsByProductCode(code);
     }
 
 }

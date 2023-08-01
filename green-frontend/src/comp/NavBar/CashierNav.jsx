@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Button, Image } from "react-bootstrap";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import logo from "../../Images/green-logo.png";
+import { AuthContext } from "../../Context/AuthContext";
 
 function CashierNav() {
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const { token, logout } = useContext(AuthContext);
 
   return (
     <div className="NavBar nav d-flex justify-content-around justify-content-lg-between">
@@ -45,15 +47,16 @@ function CashierNav() {
             Change Password
           </NavDropdown.Item>
         </NavDropdown>
-        {localStorage.getItem("token") ? (
+        {token ? (
           <Button
             className="me-5 nav_btn"
             onClick={() => {
               // TODO: have this delete cookie on server side
               fetch("/api/auth/logout").then((response) => {
                 if (response.status === 200) {
-                  localStorage.clear();
+                  logout();
                   navigate("/");
+                  window.location.reload();
                 }
               });
             }}
@@ -65,8 +68,9 @@ function CashierNav() {
             variant="primary"
             className="me-5 nav_btn"
             onClick={() => {
-              localStorage = localStorage.clear();
-              //navigate("/");
+              logout();
+              navigate("/");
+              window.location.reload();
             }}
           >
             Login

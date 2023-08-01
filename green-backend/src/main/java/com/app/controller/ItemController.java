@@ -65,6 +65,16 @@ public class ItemController {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("/allavlitems")
+    public List<Item> findAllAVLItems() {
+        return itemService.findAllAVLByStatus("AVL");
+    }
+
+    @GetMapping("/avlitemsbyproduct")
+    public List<Object[]> findAVLItemsByProduct() {
+        return itemService.findAVLItemsByProduct();
+    }
+
     // @PostMapping("/additem")
     // public ResponseEntity<Item> addItemManager(@RequestBody AddItem request) {
     // request.setStatus("PEN"); // Set the status of the new item to "PEN"

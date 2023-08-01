@@ -35,4 +35,10 @@ public class ProductController {
     public List<Product> findAll() {
         return service.findAll();
     }
+
+    @GetMapping("/existsbycode")
+    public ResponseEntity<Boolean> existsByProductCode(@RequestParam String code) {
+        boolean exists = service.existsByProductCode(code);
+        return ResponseEntity.ok(exists);
+    }
 }

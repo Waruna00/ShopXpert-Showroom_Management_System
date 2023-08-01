@@ -3,10 +3,13 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Button, Image } from "react-bootstrap";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import logo from "../../Images/green-logo.png";
+import { AuthContext } from "../../Context/AuthContext";
+import { useContext } from "react";
 
 function StoreKeeperNav() {
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const { token, logout } = useContext(AuthContext);
 
   return (
     <div className="NavBar nav d-flex justify-content-around justify-content-lg-between">
@@ -40,15 +43,17 @@ function StoreKeeperNav() {
             Change Password
           </NavDropdown.Item>
         </NavDropdown>
-        {localStorage.getItem("token") ? (
+        {token ? (
           <Button
             className="me-5 nav_btn"
             onClick={() => {
               // TODO: have this delete cookie on server side
               fetch("/api/auth/logout").then((response) => {
                 if (response.status === 200) {
-                  localStorage.clear();
+                  logout();
+                  console.log(token);
                   navigate("/");
+                  window.location.reload();
                 }
               });
             }}
@@ -60,8 +65,8 @@ function StoreKeeperNav() {
             variant="primary"
             className="me-5 nav_btn"
             onClick={() => {
-              localStorage = localStorage.clear();
-              //navigate("/");
+              logout();
+              navigate("/");
             }}
           >
             Login

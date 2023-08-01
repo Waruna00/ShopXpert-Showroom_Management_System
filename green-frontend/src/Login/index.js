@@ -10,8 +10,8 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState(null);
-  const [tokenData, setTokenData] = useState(null);
-  const { token, role, login, logout } = useContext(AuthContext);
+
+  const { login } = useContext(AuthContext);
 
   function sendLoginRequest() {
     <Directions />;
@@ -38,8 +38,6 @@ const Login = () => {
         }
       })
       .then((data) => {
-        setTokenData(data);
-        console.log("data", data);
         token = data.access_token;
         const decodedToken = jwtDecode(token);
         fetch(
@@ -63,9 +61,9 @@ const Login = () => {
           .then((data) => {
             console.log("role", data);
             console.log("token", token);
-            localStorage.setItem("token", token);
-            localStorage.setItem("role", data);
+            login(token, data);
             navigate("/dashboard");
+            window.location.reload();
           });
       });
   }

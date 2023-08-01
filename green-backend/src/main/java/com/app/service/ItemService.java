@@ -62,4 +62,12 @@ public class ItemService {
             }
         }
     }
+
+    public List<Item> findAllAVLByStatus(String status) {
+        return repository.findByStatus(status);
+    }
+
+    public List<Object[]> findAVLItemsByProduct() {
+        return repository.findAVLItemsByProduct();
+    }
 }
