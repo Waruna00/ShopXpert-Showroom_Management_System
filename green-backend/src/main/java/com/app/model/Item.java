@@ -26,6 +26,9 @@ public class Item {
     private String serial_no;
 
     @JsonFormat(pattern = "yyyy-MM-dd")
+    LocalDate addedDate;
+
+    @JsonFormat(pattern = "yyyy-MM-dd")
     LocalDate Inward;
 
     @JsonFormat(pattern = "yyyy-MM-dd")
@@ -48,4 +51,6 @@ public class Item {
 
     @OneToMany(mappedBy = "item")
     private Set<OrderItem> orderItems;
+
+
 }

@@ -17,5 +17,6 @@ public class AddItem {
     private int inward_invoice_no;
     private int outward_invoice_no;
     private String product_code;
+    private String status;
 
 }

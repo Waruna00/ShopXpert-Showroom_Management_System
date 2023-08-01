@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import NavBar from "../../comp/NavBar";
+import NavBar from "../../comp/NavBar/CashierNav";
 import { Row, Col } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import StoreKeeperNav from "../../comp/NavBar/StoreKeeperNav";
 
 function TableRows({ rows, tableRowRemove, setAddedRows, addedRows }) {
   return rows.map((rowsData, index) => {
@@ -172,7 +173,7 @@ export default function StockInward() {
 
   return (
     <>
-      <NavBar />
+      <StoreKeeperNav />
       <div className="main-page">
         <div>
           <label className="h-txt-1">STOCK INWARD</label>

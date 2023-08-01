@@ -8,7 +8,7 @@ import StoreKeeperNav from "../../comp/NavBar/StoreKeeperNav";
 
 function TableRows({ rows, navigation }) {
   const handleView = (order_no, date, status, created_by) => {
-    navigation(`/UpdateOrder`, {
+    navigation(`/AddSerial`, {
       state: { order_no, date, status, created_by },
     });
   };
@@ -47,7 +47,7 @@ function TableRows({ rows, navigation }) {
   });
 }
 
-export default function ViewOrder(props) {
+export default function ManageOrder(props) {
   const [rows, initRow] = useState([]);
   const [orders, setOrders] = useState([]);
   const navigation = useNavigate();

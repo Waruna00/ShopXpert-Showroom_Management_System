@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import NavBar from "../../comp/NavBar";
+import NavBar from "../../comp/NavBar/CashierNav";
 import Form from "react-bootstrap/Form";
 import { Button } from "react-bootstrap";
 import "./style/ServiceRepairRequest.css";
 import techImg from "../../Images/Tech.jpg";
 import { useLocation, useNavigate } from "react-router-dom";
+import TechnicianNav from "../../comp/NavBar/TechnicianNav";
 
 export default function ServiceUpdate() {
   const [updatedData, setUpdatedData] = useState({});
@@ -36,6 +37,7 @@ export default function ServiceUpdate() {
         document.getElementById("job-estimation").value = data.estimation;
         document.getElementById("job-date").value = data.date;
         document.getElementById("job-cost").value = data.cost;
+        document.getElementById("job-status").value = data.status;
       })
       .catch((error) => {
         console.error("Error fetching customer details:", error);
@@ -95,7 +97,7 @@ export default function ServiceUpdate() {
 
   return (
     <>
-      <NavBar />
+      <TechnicianNav />
       <br />
       <Row className="form-row">
         <Col xl={4}>

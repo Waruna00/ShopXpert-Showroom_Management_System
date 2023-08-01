@@ -35,7 +35,7 @@ public class RepairController {
         return ResponseEntity.ok(service.getAllRepairService());
     }
 
-    @PostMapping("findbyid")
+    @PostMapping("/findbyid")
     public Optional<Optional<RepairService>> findByServiceNumber(@RequestBody GetRepair invoice) {
         Optional<RepairService> repair = service.findById(invoice.getInvoiceno());
         if (repair.isEmpty()) {
@@ -47,6 +47,15 @@ public class RepairController {
     @PutMapping("/update")
     public ResponseEntity<RepairService> update(@RequestBody RepairService repairService) {
         RepairService updatedRepairService = this.service.update(repairService);
+        if (updatedRepairService == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(updatedRepairService);
+    }
+
+    @PutMapping("/updatestatus")
+    public ResponseEntity<RepairService> updateStatus(@RequestParam String serviceNo, @RequestParam String newStatus) {
+        RepairService updatedRepairService = this.service.updateStatus(serviceNo, newStatus);
         if (updatedRepairService == null) {
             return ResponseEntity.notFound().build();
         }

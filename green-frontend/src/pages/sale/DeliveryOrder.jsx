@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import NavBar from "../../comp/NavBar";
+import NavBar from "../../comp/NavBar/CashierNav";
 import { Row, Col } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";

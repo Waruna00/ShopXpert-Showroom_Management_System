@@ -7,13 +7,13 @@ import store from "./redux/store";
 
 function App() {
   return (
-    <UserProvider>
-      <Provider store={store}>
+    <Provider store={store}>
+      <UserProvider>
         <div>
           <Directions />
         </div>
-      </Provider>
-    </UserProvider>
+      </UserProvider>
+    </Provider>
   );
 }
 

@@ -26,6 +26,7 @@ public class ItemController {
 
     @PostMapping("/additem")
     public ResponseEntity<Item> addItem(@RequestBody AddItem request) {
+        request.setStatus("PEN"); // Set the status of the new item to "PEN"
         var item = itemService.addItem(request);
         return ResponseEntity.ok(item);
     }
@@ -63,4 +64,12 @@ public class ItemController {
         itemService.updateItemStatus(request.getSerials(), request.getStatus(), request.getBillNo());
         return ResponseEntity.ok().build();
     }
+
+    // @PostMapping("/additem")
+    // public ResponseEntity<Item> addItemManager(@RequestBody AddItem request) {
+    // request.setStatus("PEN"); // Set the status of the new item to "PEN"
+    // var item = itemService.addItem(request);
+    // return ResponseEntity.ok(item);
+    // }
+
 }

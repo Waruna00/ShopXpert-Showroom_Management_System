@@ -1,7 +1,7 @@
 import React from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import NavBar from "../../comp/NavBar";
+import NavBar from "../../comp/NavBar/CashierNav";
 import Form from "react-bootstrap/Form";
 import { Button } from "react-bootstrap";
 import "./style/ServiceRepairRequest.css";
@@ -9,6 +9,7 @@ import techImg from "../../Images/Tech.jpg";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
+import TechnicianNav from "../../comp/NavBar/TechnicianNav";
 
 function clearData() {
   document.getElementById("job-number").value = "";
@@ -102,7 +103,7 @@ export default function ServiceRepairRequest() {
 
   return (
     <>
-      <NavBar />
+      <TechnicianNav />
       <br />
       <Row className="form-row">
         <Col xl={4}>

@@ -1,12 +1,11 @@
 import React from "react";
 import { useState } from "react";
-import NavBar from "../../comp/NavBar";
+import CashierNav from "../../comp/NavBar/CashierNav";
 import { Row, Col } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router-dom";
 import Modal from "react-bootstrap/Modal";
-import e from "cors";
 
 var NetTotal = 0.0;
 var amt = 0.0;
@@ -350,7 +349,7 @@ export default function CreateSale() {
 
   return (
     <>
-      <NavBar />
+      <CashierNav />
       <div className="main-page">
         <div>
           <Row>
@@ -370,13 +369,7 @@ export default function CreateSale() {
             </Col>
           </Row>
         </div>
-        <div
-          style={{
-            zIndex: -1,
-            marginTop: "100px",
-            position: "relative",
-          }}
-        ></div>
+
         <div className="card-comp" id="card-1">
           <Row style={{ width: "100%" }}>
             <Col xl={3}>

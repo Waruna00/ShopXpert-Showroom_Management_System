@@ -58,7 +58,8 @@ public class RepairServiceService {
         }
 
         public RepairService update(RepairService repairServiceRequest) {
-                Optional<RepairService> optionalRepairService = repository.findById(Integer.toString(repairServiceRequest.getServiceno()));
+                Optional<RepairService> optionalRepairService = repository
+                                .findById(Integer.toString(repairServiceRequest.getServiceno()));
                 if (optionalRepairService.isPresent()) {
                         RepairService repairService = optionalRepairService.get();
                         repairService.setItem_name(repairServiceRequest.getItem_name());
@@ -69,6 +70,16 @@ public class RepairServiceService {
                         repairService.setCost(repairServiceRequest.getCost());
                         repairService.setItem_description(repairServiceRequest.getItem_description());
                         repairService.setCustomer(repairServiceRequest.getCustomer());
+                        return repository.save(repairService);
+                }
+                return null;
+        }
+
+        public RepairService updateStatus(String serviceNo, String newStatus) {
+                Optional<RepairService> optionalRepairService = repository.findById(serviceNo);
+                if (optionalRepairService.isPresent()) {
+                        RepairService repairService = optionalRepairService.get();
+                        repairService.setStatus(newStatus);
                         return repository.save(repairService);
                 }
                 return null;

@@ -4,7 +4,6 @@ import com.app.config.JwtService;
 import com.app.model.user.User;
 import com.app.repository.UserRepo;
 import com.app.request.AuthenticationRequest;
-import com.app.request.InfoRequest;
 import com.app.request.RegisterRequest;
 import com.app.response.AuthenticationResponse;
 import com.app.token.Token;
@@ -14,19 +13,18 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.io.IOException;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
   private final UserRepo repository;
+  private final TokenRepository tokenRepository;
   private final PasswordEncoder passwordEncoder;
   private final JwtService jwtService;
   private final AuthenticationManager authenticationManager;
@@ -49,18 +47,6 @@ public class AuthenticationService {
         .build();
   }
 
-  @Autowired
-  private TokenRepository tokenRepository;
-
-  public Optional<Token> findByEmail(int id) {
-    return tokenRepository.findById(id);
-  }
-
-  public Optional<User> userinfo(InfoRequest request) {
-    Optional<User> userByemail = repository.findByEmail(request.getEmail());
-    return userByemail;
-  }
-
   public AuthenticationResponse authenticate(AuthenticationRequest request) {
     authenticationManager.authenticate(
         new UsernamePasswordAuthenticationToken(
@@ -76,7 +62,6 @@ public class AuthenticationService {
         .accessToken(jwtToken)
         .refreshToken(refreshToken)
         .build();
-
   }
 
   private void saveUserToken(User user, String jwtToken) {

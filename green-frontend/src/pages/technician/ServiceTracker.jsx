@@ -3,9 +3,10 @@ import { Row } from "react-bootstrap";
 import { Form } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import { useState, useEffect } from "react";
-import NavBar from "../../comp/NavBar";
+import NavBar from "../../comp/NavBar/CashierNav";
 import "./style/ServiceTracker.css";
 import { useNavigate } from "react-router-dom";
+import TechnicianNav from "../../comp/NavBar/TechnicianNav";
 
 function TableRows({ rows, navigation }) {
   const handleView = (jobNo) => {
@@ -111,7 +112,7 @@ export default function ServiceTracker(props) {
 
   return (
     <>
-      <NavBar />
+      <TechnicianNav />
       <br />
       <div className="search-bar">
         <input

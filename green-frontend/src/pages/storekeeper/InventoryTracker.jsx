@@ -1,10 +1,11 @@
 import React from "react";
-import NavBar from "../../comp/NavBar";
+import NavBar from "../../comp/NavBar/CashierNav";
 import { Row } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { useState } from "react";
 import { useEffect } from "react";
+import StoreKeeperNav from "../../comp/NavBar/StoreKeeperNav";
 
 export default function InventoryTracker() {
   const [products, setProducts] = useState([]);
@@ -80,7 +81,7 @@ export default function InventoryTracker() {
   }
   return (
     <>
-      <NavBar />
+      <StoreKeeperNav />
       <div className="main-page">
         <div>
           <label className="h-txt-1">INVENTORY TRACKER</label>

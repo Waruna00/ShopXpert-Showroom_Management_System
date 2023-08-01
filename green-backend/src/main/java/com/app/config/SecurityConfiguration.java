@@ -47,7 +47,7 @@ public class SecurityConfiguration {
         .disable()
         .authorizeHttpRequests()
         .requestMatchers(
-            "/api/v1/auth/**",
+            "/api/auth/**",
             "/api/v1/auth/userinfo/**",
             "/v2/api-docs",
             "/v3/api-docs",
@@ -64,6 +64,7 @@ public class SecurityConfiguration {
             "/api/order/**",
             "/api/customer/**",
             "/api/item/**",
+            "/api/user/**",
             "/api/inwardinvoice/**",
             "/api/bill/**")
         .permitAll()

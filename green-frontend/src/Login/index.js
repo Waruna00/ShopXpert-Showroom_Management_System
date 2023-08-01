@@ -1,19 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import { Button, Col, Container, Row, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { UserProvider, useUser } from "../UserProvider";
 import Directions from "../Directions";
+import jwtDecode from "jwt-decode";
+import { AuthContext } from "../Context/AuthContext";
 
 const Login = () => {
-  const user = useUser();
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState(null);
-
-  useEffect(() => {
-    if (user.jwt) navigate("/dashboard");
-  }, [user]);
+  const [tokenData, setTokenData] = useState(null);
+  const { token, role, login, logout } = useContext(AuthContext);
 
   function sendLoginRequest() {
     <Directions />;
@@ -22,8 +20,9 @@ const Login = () => {
       email: username,
       password: password,
     };
+    var token = null;
 
-    fetch("http://localhost:8080/api/v1/auth/authenticate", {
+    fetch("http://localhost:8080/api/auth/authenticate", {
       headers: {
         "Content-Type": "application/json",
       },
@@ -31,21 +30,43 @@ const Login = () => {
       body: JSON.stringify(reqBody),
     })
       .then((response) => {
-        if (response.status === 200) return response.text();
+        if (response.status === 200) return response.json();
         else if (response.status === 401 || response.status === 403) {
           setErrorMsg("Invalid username or password");
         } else {
-          setErrorMsg(
-            "Something went wrong, try again later"
-          );
+          setErrorMsg("Something went wrong, try again later");
         }
       })
       .then((data) => {
-        if (data) {
-          console.log(data);
-          user.setJwt(data);
-          navigate("/dashboard");
-        }
+        setTokenData(data);
+        console.log("data", data);
+        token = data.access_token;
+        const decodedToken = jwtDecode(token);
+        fetch(
+          `http://localhost:8080/api/user/userrole?email=${decodedToken.sub}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            method: "get",
+          }
+        )
+          .then((response) => {
+            if (response.status === 200) return response.json();
+            else if (response.status === 401 || response.status === 403) {
+              setErrorMsg("Invalid username or password");
+            } else {
+              setErrorMsg("Something went wrong, try again later");
+            }
+          })
+          .then((data) => {
+            console.log("role", data);
+            console.log("token", token);
+            localStorage.setItem("token", token);
+            localStorage.setItem("role", data);
+            navigate("/dashboard");
+          });
       });
   }
   return (

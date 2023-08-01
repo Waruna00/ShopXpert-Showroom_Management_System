@@ -24,9 +24,8 @@ public class ItemService {
     public Item addItem(AddItem request) {
         var item = new Item();
         item.setSerial_no(request.getSerial_no());
-        item.setInward(LocalDate.now());
-        item.setInward_invoice(inwardRepository.findById(request.getInward_invoice_no())
-                .orElseThrow(() -> new RuntimeException("Inward not found")));
+        item.setStatus(request.getStatus());
+        item.setAddedDate(LocalDate.now());
         item.setProduct(productRepository.findById(request.getProduct_code())
                 .orElseThrow(() -> new RuntimeException("Product not found")));
         return repository.save(item);

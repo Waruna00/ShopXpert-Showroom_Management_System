@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, Col, Container, Row, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
- import NavBar from "../../NavBar";
+import NavBar from "../../NavBar";
 import { useUser } from "../../UserProvider";
 
 const Login = () => {
@@ -11,9 +11,9 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState(null);
 
-  // useEffect(() => {
-  //   if (user.jwt) navigate("/dashboard");
-  // }, [user]);
+  useEffect(() => {
+    if (user.jwt) navigate("/dashboard");
+  }, [user]);
 
   function sendLoginRequest() {
     setErrorMsg("");
@@ -22,7 +22,9 @@ const Login = () => {
       password: password,
     };
 
-    fetch("http://localhost:8080/api/v1/auth/authenticate", {
+    console.log(reqBody);
+
+    fetch("http://localhost:8080/api/auth/authenticate", {
       headers: {
         "Content-Type": "application/json",
       },
