@@ -21,7 +21,7 @@ export default function ManagerDashboard() {
           <Col xl={10}>
             <div className="kpi-container" style={{ margin: "auto" }}>
               <iframe
-                title="Development Project Data PowerBI - Final - Page 1"
+                title="Development Project Data PowerBI - Final"
                 width="1140"
                 height="541.25"
                 src="https://app.powerbi.com/reportEmbed?reportId=6f854a31-3fdf-4745-a488-95e8498d5710&autoAuth=true&ctid=aa232db2-7a78-4414-a529-33db9124cba7"

@@ -19,7 +19,7 @@ export default function AddProduct() {
 
   const validateKeyDown = () => {
     var productCode = document.getElementById("product-code").value;
-    if (productCode === "") {
+    if (productCode.trim() === "") {
       alert("Please enter a product code");
       return;
     } else {
@@ -42,40 +42,45 @@ export default function AddProduct() {
 
   const handleProcessKeyDown = () => {
     var productCode = document.getElementById("product-code").value;
-    fetch(`http://localhost:8080/api/product/existsbycode?code=${productCode}`)
-      .then((response) => response.json())
-      .then((data) => data)
-      .then((exists) => {
-        if (exists) {
-          setValidity(exists);
-        } else {
-          setValidity(exists);
-        }
-      });
-    if (validity) {
-      alert("Product already exists");
+    if (productCode.trim() === "") {
+      alert("Please enter a product code");
+      return;
     } else {
-      var data = {
-        productcode: document.getElementById("product-code").value,
-        name: document.getElementById("product-name").value,
-        description: document.getElementById("product-des").value,
-        price: document.getElementById("product-price").value,
-      };
+      fetch(
+        `http://localhost:8080/api/product/existsbycode?code=${productCode}`
+      )
+        .then((response) => response.json())
+        .then((data) => data)
+        .then((exists) => {
+          setValidity(exists);
+          console.log("es: ", exists);
+          if (exists) {
+            alert("Product already exists");
+            return;
+          } else {
+            var data = {
+              productcode: document.getElementById("product-code").value,
+              name: document.getElementById("product-name").value,
+              description: document.getElementById("product-des").value,
+              price: document.getElementById("product-price").value,
+            };
 
-      fetch("http://localhost:8080/api/product/add", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      }).then((response) => {
-        if (response.status === 200) {
-          alert("Product added successfully");
-          window.location.reload();
-        } else {
-          alert("Error adding product");
-        }
-      });
+            fetch("http://localhost:8080/api/product/add", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(data),
+            }).then((response) => {
+              if (response.status === 200) {
+                alert("Product added successfully");
+                window.location.reload();
+              } else {
+                alert("Error adding product");
+              }
+            });
+          }
+        });
     }
   };
 

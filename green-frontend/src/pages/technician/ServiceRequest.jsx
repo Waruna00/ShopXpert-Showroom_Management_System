@@ -26,7 +26,7 @@ function clearData() {
 const bill = {};
 
 var data = {};
-function handleKeyDownSave() {
+function handleKeyDownSave(navigate) {
   //var jobNumber = document.getElementById("job-number").value;
   var itemName = document.getElementById("item-name").value;
   var itemSerial = document.getElementById("item-serial").value;
@@ -34,35 +34,53 @@ function handleKeyDownSave() {
   var cusCode = document.getElementById("cus-code").value;
   var jobdescription = document.getElementById("job-details").value;
   var estimationAmount = document.getElementById("job-estimation").value;
-  data = {
-    itemname: itemName,
-    serial: itemSerial,
-    description: jobdescription,
-    itemdescription: itemDes,
-    status: "Pending",
-    estimation: estimationAmount,
-    customer: parseInt(cusCode),
-  };
 
-  const options = {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  };
-  console.log(data);
-  fetch("http://localhost:8080/api/technician/addrepair", options)
-    .then((response) => response.json())
-    .then((data) => console.log(data))
-    .catch((error) => console.error(error))
-    .finally(() => console.log("Request completed."));
+  if (!itemName || !itemSerial || !itemDes || !cusCode || !jobdescription) {
+    alert("Please fill in all fields");
+    return;
+  } else {
+    if (estimationAmount && estimationAmount < 1) {
+      alert("Please enter a valid estimation amount");
+    } else {
+      data = {
+        itemname: itemName,
+        serial: itemSerial,
+        description: jobdescription,
+        itemdescription: itemDes,
+        status: "Pending",
+        estimation: estimationAmount,
+        customer: parseInt(cusCode),
+      };
+
+      const options = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      };
+      console.log(data);
+      fetch("http://localhost:8080/api/technician/addrepair", options)
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          navigate("/srr");
+        })
+        .catch((error) => console.error(error))
+        .finally(() => console.log("Request completed."));
+    }
+  }
 }
 
 export default function ServiceRepairRequest() {
   const navigate = useNavigate();
   const [lastRepairNo, setLastRepairNo] = useState();
-  const [customer, setCustomer] = useState(null);
+  const [customer, setCustomer] = useState({
+    firstname: "",
+    lastname: "",
+    email: "",
+    phone: "",
+  });
 
   function handleKeyDownCusCode(event) {
     var customerId = document.getElementById("cus-code").value;
@@ -76,17 +94,17 @@ export default function ServiceRepairRequest() {
       })
         .then((response) => response.json())
         .then((data) => {
+          console.log("Customer details:", data);
+          if (data === null) {
+            alert("Customer not found");
+            return;
+          }
           setCustomer(data);
           console.log("Customer details:", customer);
         })
         .catch((error) => {
           console.error("Error fetching customer details:", error);
         });
-
-      document.getElementById("cus-name").value =
-        customer.first_Name + " " + customer.last_Name;
-      document.getElementById("cus-email").value = customer.email;
-      document.getElementById("cus-phone").value = customer.phone;
     }
   }
 
@@ -124,7 +142,7 @@ export default function ServiceRepairRequest() {
                     id="job-number"
                     placeholder="Job Number"
                     readOnly
-                    value={"CS - " + (parseInt(lastRepairNo) + 1)}
+                    value={parseInt(lastRepairNo) + 1}
                   />
                 </Col>
                 <Col xl={1}></Col>
@@ -181,9 +199,11 @@ export default function ServiceRepairRequest() {
                 <Col xl={5}>
                   <Form.Label>Customer Name</Form.Label>
                   <Form.Control
+                    disabled
                     type="text"
                     id="cus-name"
                     placeholder="Customer Name"
+                    value={customer.firstname + " " + customer.lastname}
                   />
                 </Col>
               </Row>
@@ -192,8 +212,10 @@ export default function ServiceRepairRequest() {
                   <Form.Label>Customer Email</Form.Label>
                   <Form.Control
                     type="text"
+                    disabled
                     id="cus-email"
                     placeholder="Email Address"
+                    value={customer.email}
                   />
                 </Col>
                 <Col xl={1}></Col>
@@ -201,8 +223,10 @@ export default function ServiceRepairRequest() {
                   <Form.Label>Customer Phone</Form.Label>
                   <Form.Control
                     type="text"
+                    disabled
                     id="cus-phone"
                     placeholder="Phone Number"
+                    value={customer.phone}
                   />
                 </Col>
               </Row>
@@ -217,14 +241,21 @@ export default function ServiceRepairRequest() {
                   <Form.Label>Estimation : </Form.Label>
                 </Col>
                 <Col xl={3}>
-                  <Form.Control type="text" id="job-estimation" />
+                  <Form.Control
+                    type="number"
+                    id="job-estimation"
+                    min="1"
+                    step="1"
+                    pattern="[1-9][0-9]*"
+                    required
+                  />
                 </Col>
                 <Col xl={3}></Col>
                 <Col xl={2}>
                   <Button
                     onClick={() => {
-                      handleKeyDownSave();
-                      navigate("/srr");
+                      handleKeyDownSave(navigate);
+
                       console.log(bill);
                     }}
                     className="row-btn"

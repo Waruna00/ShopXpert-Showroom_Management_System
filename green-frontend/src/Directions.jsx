@@ -29,6 +29,8 @@ import ManagerDashboard from "./pages/dashboard/ManagerDashboard";
 import AddProduct from "./pages/manager/AddProduct";
 import { useContext } from "react";
 import UpdateProduct from "./pages/manager/UpdateProduct";
+import CustomerRegistration from "./pages/manage_customer/CustomerRegistration";
+import ManageCustomer from "./pages/manage_customer/ManageCustomer";
 
 export default function Directions() {
   const authState = useContext(AuthContext);
@@ -49,6 +51,11 @@ export default function Directions() {
               <Route path="/DeliveryOrder" element={<DeliveryOrder />} />
               <Route path="/Dayend" element={<DayEnd />} />
               <Route path="/InventoryTracker" element={<InventoryTracker />} />
+              <Route path="/ManageCustomer" element={<ManageCustomer />} />
+              <Route
+                path="/CustomerRegistration"
+                element={<CustomerRegistration />}
+              />
             </>
           )}
 
@@ -64,6 +71,11 @@ export default function Directions() {
               <Route path="/ServiceTracker" element={<ServiceTracker />} />
               <Route path="/ServiceUpdate" element={<ServiceUpdate />} />
               <Route path="/InventoryTracker" element={<InventoryTracker />} />
+              <Route path="/ManageCustomer" element={<ManageCustomer />} />
+              <Route
+                path="/CustomerRegistration"
+                element={<CustomerRegistration />}
+              />
             </>
           )}
 
@@ -77,6 +89,11 @@ export default function Directions() {
               <Route path="/UpdateOrder" element={<UpdateOrder />} />
               <Route path="/StockInward" element={<StockInward />} />
               <Route path="/StockOutward" element={<StockOutward />} />
+              <Route path="/ManageCustomer" element={<ManageCustomer />} />
+              <Route
+                path="/CustomerRegistration"
+                element={<CustomerRegistration />}
+              />
             </>
           )}
 
@@ -91,6 +108,11 @@ export default function Directions() {
               <Route path="/AddProduct" element={<AddProduct />} />
               <Route path="/UpdateProduct" element={<UpdateProduct />} />
               <Route path="/InventoryTracker" element={<InventoryTracker />} />
+              <Route path="/ManageCustomer" element={<ManageCustomer />} />
+              <Route
+                path="/CustomerRegistration"
+                element={<CustomerRegistration />}
+              />
             </>
           )}
 

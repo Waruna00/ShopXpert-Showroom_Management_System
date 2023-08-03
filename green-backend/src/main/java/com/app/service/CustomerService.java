@@ -25,5 +25,8 @@ public class CustomerService {
     public Customer addCustomer(Customer customer) {
         return repository.save(customer);
     }
-    
+
+    public boolean existsCuscode(int id) {
+        return repository.existsByCuscode(id);
+    }
 }

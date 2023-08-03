@@ -38,8 +38,6 @@ export default function SRR() {
           customerPhone: data.customer.phone,
           customerNIC: data.customer.customerNIC,
         });
-        console.log("Last repair record:", billData);
-        //setLastRepairNo(data.serviceno);
       })
       .catch((error) => {
         console.error("Error fetching last repair record:", error);
@@ -82,38 +80,40 @@ export default function SRR() {
             </MDBContainer>
             <hr />
             <MDBRow>
-              <MDBCol xl="8">
-                <MDBTypography listUnStyled>
-                  <li className="text-muted">
-                    To:{" "}
-                    <span style={{ color: "#5d9fc5" }}>
-                      {billData.customerName}
-                    </span>
-                  </li>
-                  <li className="text-muted">
-                    Address : {billData.customerAddress}
-                  </li>
-                  <li className="text-muted">NIC : {billData.customerNIC}</li>
-                  <li className="text-muted">
-                    <MDBIcon fas icon="phone-alt" />
-                    Mobile : {billData.customerPhone}
-                  </li>
-                </MDBTypography>
-              </MDBCol>
-              <MDBCol xl="4">
-                <p className="text-muted">Invoice</p>
-                <MDBTypography listUnStyled>
-                  <li className="text-muted">
-                    <MDBIcon fas icon="circle" style={{ color: "#84B0CA" }} />
-                    <span className="fw-bold ms-1">No : </span> CS -{" "}
-                    {billData.invoiceNo}
-                  </li>
-                  <li className="text-muted">
-                    <MDBIcon fas icon="circle" style={{ color: "#84B0CA" }} />
-                    <span className="fw-bold ms-1">Date : </span>
-                    {billData.date}
-                  </li>
-                </MDBTypography>
+              <MDBCol
+                listUnStyled
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                }}
+                className="text-left"
+                xl="6"
+              >
+                <label className="text-muted">
+                  To:{" "}
+                  <span style={{ color: "#5d9fc5" }}>
+                    {billData.customerName}
+                  </span>
+                </label>
+                <label className="text-muted">
+                  Address : {billData.customerAddress}
+                </label>
+                <label className="text-muted">
+                  <MDBIcon fas icon="phone-alt" />
+                  Mobile : {billData.customerPhone}
+                </label>
+                <br />
+                <label className="text-muted"></label>
+                <label className="text-muted">
+                  <MDBIcon fas icon="circle" style={{ color: "#84B0CA" }} />
+                  <span className="fw-bold ms-1">Invoice No : </span>{" "}
+                  {billData.invoiceNo}
+                </label>
+                <label className="text-muted">
+                  <MDBIcon fas icon="circle" style={{ color: "#84B0CA" }} />
+                  <span className="fw-bold ms-1">Date : </span> {billData.date}
+                </label>
+                <br />
               </MDBCol>
             </MDBRow>
             <MDBRow className="my-2 mx-1 justify-content-center">
@@ -144,7 +144,12 @@ export default function SRR() {
                   <br></br>
                   <span className="text-black me-3"> Estimation Amount : </span>
                   <span style={{ fontSize: "25px" }}>
-                    <b>RS. {parseFloat(billData.estimation).toFixed(2)}</b>
+                    <b>
+                      {" "}
+                      {isNaN(parseFloat(billData.estimation).toFixed(2))
+                        ? `Pending`
+                        : `RS. ${parseFloat(billData.estimation).toFixed(2)}`}
+                    </b>
                   </span>
                 </p>
               </MDBCol>

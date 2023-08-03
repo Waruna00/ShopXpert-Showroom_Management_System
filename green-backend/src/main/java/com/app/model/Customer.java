@@ -12,13 +12,13 @@ import jakarta.persistence.Table;
 public class Customer {
     @Id
     @GeneratedValue(generator = "increment")
-    private int Cus_Code;
-    private String First_Name;
-    private String Last_Name;
-    private String Address;
-    private String Phone;
-    private String Email;
-    private String NIC;
+    private int cuscode;
+    private String firstname;
+    private String lastname;
+    private String address;
+    private String phone;
+    private String email;
+    private String nic;
 
     // Relationships
     @OneToMany(mappedBy = "customer")
@@ -28,59 +28,59 @@ public class Customer {
     private List<RepairService> repairServices;
 
     // Getters and Setters
-    public int getCus_Code() {
-        return Cus_Code;
+    public int getCuscode() {
+        return cuscode;
     }
 
     public void setCus_Code(int cus_Code) {
-        Cus_Code = cus_Code;
+        cuscode = cus_Code;
     }
 
-    public String getFirst_Name() {
-        return First_Name;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setFirst_Name(String first_Name) {
-        First_Name = first_Name;
+    public void setFirstname(String first_Name) {
+        firstname = first_Name;
     }
 
-    public String getLast_Name() {
-        return Last_Name;
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setLast_Name(String last_Name) {
-        Last_Name = last_Name;
+    public void setLastnme(String last_Name) {
+        lastname = last_Name;
     }
 
     public String getAddress() {
-        return Address;
+        return address;
     }
 
-    public void setAddress(String address) {
-        Address = address;
+    public void setAddress(String Address) {
+        address = Address;
     }
 
     public String getPhone() {
-        return Phone;
+        return phone;
     }
 
-    public void setPhone(String phone) {
-        Phone = phone;
+    public void setPhone(String Phone) {
+        phone = Phone;
     }
 
     public String getEmail() {
-        return Email;
+        return email;
     }
 
-    public void setEmail(String email) {
-        Email = email;
+    public void setEmail(String Email) {
+        email = Email;
     }
 
-    public String getNIC() {
-        return NIC;
+    public String getNic() {
+        return nic;
     }
 
     public void setNIC(String nIC) {
-        NIC = nIC;
+        nic = nIC;
     }
 }

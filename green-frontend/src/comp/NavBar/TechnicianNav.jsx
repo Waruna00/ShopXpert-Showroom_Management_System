@@ -14,7 +14,7 @@ function TechnicianNav() {
   return (
     <div className="NavBar nav d-flex justify-content-around justify-content-lg-between">
       <div className="ms-md-5">
-        <Link to="/">
+        <Link to="/dashboard">
           <Image src={logo} alt="logo" className="logo" />
         </Link>
       </div>
@@ -28,27 +28,27 @@ function TechnicianNav() {
           </NavDropdown.Item>
         </NavDropdown>
         <NavDropdown title="Inventory" id="basic-nav-dropdown">
-          <NavDropdown.Item disabled href="#action/3.1">
-            Stock Inward
-          </NavDropdown.Item>
-          <NavDropdown.Item disabled href="#action/3.2">
-            Stock Outward
-          </NavDropdown.Item>
           <NavDropdown.Item href="/InventoryTracker">
             Inventory Tracker
           </NavDropdown.Item>
         </NavDropdown>
-        <NavDropdown title="Finance" id="basic-nav-dropdown">
-          <NavDropdown.Item disabled href="/Dayend">
-            Dayend
+
+        <NavDropdown title="Customer" id="basic-nav-dropdown">
+          <NavDropdown.Item href="/ManageCustomer">
+            Manage Customer
+          </NavDropdown.Item>
+          <NavDropdown.Item href="/CustomerRegistration">
+            Customer Registration
           </NavDropdown.Item>
         </NavDropdown>
+
         <NavDropdown title="Account" id="basic-nav-dropdown">
           <NavDropdown.Item href="#action/3.1">User Details</NavDropdown.Item>
           <NavDropdown.Item href="#action/3.1">
             Change Password
           </NavDropdown.Item>
         </NavDropdown>
+
         {token ? (
           <Button
             className="me-5 nav_btn"

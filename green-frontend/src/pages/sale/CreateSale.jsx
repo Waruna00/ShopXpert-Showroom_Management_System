@@ -102,19 +102,24 @@ export default function CreateSale() {
   const [serials, setSerials] = useState([]);
   const [itemData, setItemData] = useState([]);
   const [addedSerials, setAddedSerials] = useState([]);
+  const [i, setI] = useState(0);
 
   function addSerialNo(serial_no) {
     // Check if the serial number already exists in the state
     const exists = addedSerials.some((serial) => serial === serial_no);
 
     // If the serial number doesn't exist, add it to the state
-    if (!exists && addedSerials.length < itemData.qty) {
-      setAddedSerials([...addedSerials, serial_no]);
-      console.log(addedSerials);
-      return "Successfully added serial number";
-    } else {
+    if (exists) {
       console.log(addedSerials);
       return "Serial number already added choose a different no";
+    } else if (i >= itemData.qty) {
+      setI(0);
+      return "You have already added all the serial numbers";
+    } else {
+      setAddedSerials([...addedSerials, serial_no]);
+      setI(i + 1);
+      console.log(addedSerials);
+      return "Successfully added serial number";
     }
   }
 
@@ -183,7 +188,8 @@ export default function CreateSale() {
   }
 
   function handleSaveKeyDown() {
-    const totalQty = rows.reduce((acc, row) => acc + row.qty, 0);
+    const totalQty = rows.reduce((acc, row) => acc + parseInt(row.qty), 0);
+    console.log("Total Qty", totalQty);
 
     if (window.confirm("Are you sure you want to save the bill?") === true) {
       console.log("Qty", addedSerials.length);

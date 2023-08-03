@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import NavBar from "../../comp/NavBar/CashierNav";
 import Form from "react-bootstrap/Form";
 import { Button } from "react-bootstrap";
 import "./style/ServiceRepairRequest.css";
@@ -13,6 +12,7 @@ export default function ServiceUpdate() {
   const [updatedData, setUpdatedData] = useState({});
   const location = useLocation();
   let navigation = useNavigate();
+  const [customer, setCustomer] = useState({});
 
   useEffect(() => {
     fetch("http://localhost:8080/api/technician/findbyid", {
@@ -24,11 +24,11 @@ export default function ServiceUpdate() {
     })
       .then((response) => response.json())
       .then((data) => {
-        document.getElementById("job-number").value = "CS - " + data.serviceno;
+        document.getElementById("job-number").value = data.serviceno;
         document.getElementById("item-name").value = data.item_name;
         document.getElementById("item-serial").value = data.serial;
         document.getElementById("item-des").value = data.item_description;
-        document.getElementById("cus-code").value = data.customer.cus_Code;
+        document.getElementById("cus-code").value = data.customer.cuscode;
         document.getElementById("cus-name").value =
           data.customer.first_Name + " " + data.customer.last_Name;
         document.getElementById("cus-email").value = data.customer.email;
@@ -69,12 +69,13 @@ export default function ServiceUpdate() {
       date: jobDate,
       item_description: itemDes,
       customer: {
-        cus_Code: cusCode,
+        cuscode: cusCode,
         email: cusEmail,
         phone: cusPhone,
       },
     });
 
+    console.log(updatedData);
     const requestOptions = {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -256,7 +257,14 @@ export default function ServiceUpdate() {
                   </Button>
                 </Col>
                 <Col xl={2}>
-                  <Button className="row-btn" variant="secondary">
+                  <Button
+                    className="row-btn"
+                    variant="secondary"
+                    onClick={() => {
+                      navigation("/ServiceTracker");
+                      window.location.reload();
+                    }}
+                  >
                     Back
                   </Button>
                 </Col>

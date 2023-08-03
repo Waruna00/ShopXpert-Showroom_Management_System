@@ -87,7 +87,6 @@ export default function ServiceTracker(props) {
             date: service.date,
             estimation: service.estimation,
             status: service.status,
-            customer: service.customer.first_Name,
           }));
           initRow(rows);
         }

@@ -7,14 +7,14 @@ import { useNavigate } from "react-router-dom";
 import StoreKeeperNav from "../../comp/NavBar/StoreKeeperNav";
 
 function TableRows({ rows, navigation }) {
-  const handleView = (order_no, date, status, created_by) => {
+  const handleView = (order_no, date, status) => {
     navigation(`/UpdateOrder`, {
-      state: { order_no, date, status, created_by },
+      state: { order_no, date, status },
     });
   };
 
   return rows.map((rowsData, index) => {
-    var { order_no, date, status, created_by } = rowsData;
+    var { order_no, date, status } = rowsData;
 
     return (
       <tr key={index}>
@@ -27,16 +27,13 @@ function TableRows({ rows, navigation }) {
         <td>
           <Form.Label>{status}</Form.Label>
         </td>
-        <td>
-          <Form.Label>{created_by}</Form.Label>
-        </td>
 
         <td>
           <Button
             className="row-btn"
             variant="btn btn-secondary"
             onClick={() => {
-              handleView(order_no, date, status, created_by);
+              handleView(order_no, date, status);
             }}
           >
             View
@@ -109,7 +106,7 @@ export default function ViewOrder(props) {
               <th>Order No</th>
               <th>Date</th>
               <th>Status</th>
-              <th>Created By</th>
+
               <th>View / Edit</th>
             </tr>
           </thead>

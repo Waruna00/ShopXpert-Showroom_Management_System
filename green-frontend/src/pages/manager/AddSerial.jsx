@@ -73,6 +73,7 @@ export default function UpdateOrder() {
   const [serials, setSerials] = useState([]);
   const [tempProductCode, setTempProductCode] = useState("");
   const [tempQty, setTempQty] = useState(0);
+  const [addedQty, setAddedQty] = useState(0);
 
   const [tempIndex, setTempIndex] = useState(0);
 
@@ -367,6 +368,7 @@ export default function UpdateOrder() {
               <TableRows
                 rows={orderItems}
                 setModalShow={setModalShow}
+                setAddedQty={setAddedQty}
                 setTempProductCode={setTempProductCode}
                 setTempQty={setTempQty}
                 setTempIndex={setTempIndex}

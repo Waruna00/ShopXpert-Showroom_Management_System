@@ -14,18 +14,15 @@ function ManagerNav() {
   return (
     <div className="NavBar nav d-flex justify-content-around justify-content-lg-between">
       <div className="ms-md-5">
-        <Link to="/">
+        <Link to="/dashboard">
           <Image src={logo} alt="logo" className="logo" />
         </Link>
       </div>
       <div className="btn_div">
-        <NavDropdown title="Sale" id="basic-nav-dropdown">
-          <NavDropdown.Item href="/CreateSale">Cash Sale</NavDropdown.Item>
-          <NavDropdown.Item disabled href="#action/3.2">
-            Sales Tracker
-          </NavDropdown.Item>
-          <NavDropdown.Item disabled href="#action/3.4">
-            Price Tracker
+        <NavDropdown title="Product" id="basic-nav-dropdown">
+          <NavDropdown.Item href="/AddProduct">Add Product</NavDropdown.Item>
+          <NavDropdown.Item href="/UpdateProduct">
+            Update Product
           </NavDropdown.Item>
         </NavDropdown>
 
@@ -34,15 +31,19 @@ function ManagerNav() {
           <NavDropdown.Item href="/InventoryTracker">
             Inventory Tracker
           </NavDropdown.Item>
-          <NavDropdown.Divider />
-          <NavDropdown.Item href="/AddProduct">Add Product</NavDropdown.Item>
-          <NavDropdown.Item href="/UpdateProduct">
-            Update Product
-          </NavDropdown.Item>
         </NavDropdown>
 
-        <NavDropdown title="" id="basic-nav-dropdown">
+        <NavDropdown title="Finance" id="basic-nav-dropdown">
           <NavDropdown.Item href="/Dayend">Dayend</NavDropdown.Item>
+        </NavDropdown>
+
+        <NavDropdown title="Customer" id="basic-nav-dropdown">
+          <NavDropdown.Item href="/ManageCustomer">
+            Manage Customer
+          </NavDropdown.Item>
+          <NavDropdown.Item href="/CustomerRegistration">
+            Customer Registration
+          </NavDropdown.Item>
         </NavDropdown>
 
         <NavDropdown title="Account" id="basic-nav-dropdown">

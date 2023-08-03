@@ -37,6 +37,16 @@ function StoreKeeperNav() {
             Dayend
           </NavDropdown.Item>
         </NavDropdown>
+
+        <NavDropdown title="Customer" id="basic-nav-dropdown">
+          <NavDropdown.Item href="/ManageCustomer">
+            Manage Customer
+          </NavDropdown.Item>
+          <NavDropdown.Item href="/CustomerRegistration">
+            Customer Registration
+          </NavDropdown.Item>
+        </NavDropdown>
+
         <NavDropdown title="Account" id="basic-nav-dropdown">
           <NavDropdown.Item href="#action/3.1">User Details</NavDropdown.Item>
           <NavDropdown.Item href="#action/3.1">

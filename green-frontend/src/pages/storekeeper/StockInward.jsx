@@ -153,7 +153,7 @@ export default function StockInward() {
       })
         .then((response) => response.json())
         .then((data) => {
-          window.alert("Successfully saved");
+          //window.alert("Successfully saved");
           window.location.reload();
         })
         .catch((error) => console.error(error));

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.model.Customer;
@@ -41,6 +42,12 @@ public class CustomerController {
     public ResponseEntity<Customer> add(
             @RequestBody Customer request) {
         return ResponseEntity.ok(service.addCustomer(request));
+    }
+
+    @GetMapping("/existsbyid")
+    public ResponseEntity<Boolean> existsByCusCode(@RequestParam int id) {
+        boolean exists = service.existsCuscode(id);
+        return ResponseEntity.ok(exists);
     }
 
 }
